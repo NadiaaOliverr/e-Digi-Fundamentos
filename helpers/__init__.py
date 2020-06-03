@@ -1,3 +1,3 @@
-from .decorators import validate_field, validate_email
+from .decorators import is_not_null, is_email
 
-__all__ = ['validate_field', 'validate_email']
+__all__ = ['is_not_null', 'is_email']

@@ -1,8 +1,8 @@
-from validate_email import validate_email as verification_email
+from validate_email import validate_email
 
 
-def validate_field(function):
-    """Valida campos em branco, none ou que só possuem espaços"""
+def is_not_null(function):
+    """Valida campos em branco: '', se só possuem espaços: '  ' ou None"""
 
     def wrapper(self, field):
         if not field or field.split() == []:
@@ -11,11 +11,11 @@ def validate_field(function):
     return wrapper
 
 
-def validate_email(function):
+def is_email(function):
     """Valida se o campo digitado é um email"""
 
     def wrapper(self, email):
-        if not verification_email(email):
+        if not validate_email(email):
             raise Exception('E-mail inválido.')
         return function(self, email)
     return wrapper

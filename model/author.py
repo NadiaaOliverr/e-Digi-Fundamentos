@@ -1,4 +1,4 @@
-from helpers import validate_field, validate_email
+from helpers import is_not_null, is_email
 from datetime import datetime
 
 
@@ -39,11 +39,11 @@ class Author:
     def registration_time(self) -> datetime:
         return self._registration_time
 
-    @validate_field
+    @is_not_null
     def __set_name(self, name: str) -> None:
         self._name = name
 
-    @validate_field
-    @validate_email
+    @is_not_null
+    @is_email
     def __set_email(self, email: str) -> None:
         self._email = email
