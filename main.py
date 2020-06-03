@@ -1,7 +1,7 @@
 """Executa as classes de model e dao."""
 
-from model import Author
-from dao import AuthorDao
+from model import Category
+from dao import CategoryDao
 
 __author__ = "Nádia Oliveira"
 __email__ = "nadiaaoliverr@gmail.com"
@@ -9,13 +9,13 @@ __status__ = "Em desenvolvimento"
 
 
 def start():
-    authors = AuthorDao()
+    categories = CategoryDao()
 
-    author_machado = Author('Machado de Assis', 'machado@assis.com.br')
-    author_clarice = Author('Clarice Lispector', 'clarice@lispector.com.br')
+    category_romance = Category('Romance')
+    category_aventura = Category('Aventura')
 
-    authors.add_author(author_machado)
-    authors.add_author(author_clarice)
+    categories.add_category(category_romance)
+    categories.add_category(category_aventura)
 
 
 if __name__ == '__main__':

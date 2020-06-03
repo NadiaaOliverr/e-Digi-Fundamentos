@@ -5,7 +5,7 @@ from datetime import datetime
 class Author:
     """Modelo de Autores"""
 
-    __attributes = ('_name', '_email')
+    __attributes = ('_name', '_email', '_registration_time')
 
     def __init__(self, name: str, email: str) -> None:
         self.__set_name(name)
