@@ -6,11 +6,14 @@ class CategoryDao:
 
     _list_categories: List[Category] = []
 
-    def add_category(self, category: Category) -> None:
-        if category in self._list_categories:
-            raise Exception('Esta categoria já consta na base de dados.')
-        self._list_categories.append(category)
-        print(f'\n---Categoria Cadastrada---\n{category}\n')
+    def save(self, category: Category) -> None:
+        if isinstance(category, Category):
+            if category in self._list_categories:
+                raise Exception('Esta categoria já consta na base de dados.')
+            self._list_categories.append(category)
+            print(f'\n---Categoria Cadastrada---\n{category}\n')
+        else:
+            raise Exception('O argumento passado não é do tipo Categoria')
 
     def all_categories(self) -> list:
         return self._list_categories.copy()

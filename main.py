@@ -9,13 +9,13 @@ __status__ = "Em desenvolvimento"
 
 
 def start():
-    categories = CategoryDao()
+    dao = CategoryDao()
 
-    category_romance = Category('Romance')
-    category_aventura = Category('Aventura')
-
-    categories.add_category(category_romance)
-    categories.add_category(category_aventura)
+    romance = Category('Romance')
+    aventura = Category('Aventura')
+    
+    dao.save(romance)
+    dao.save(aventura)
 
 
 if __name__ == '__main__':
