@@ -6,11 +6,14 @@ class AuthorDao:
 
     _list_authors: List[Author] = []
 
-    def add_author(self, author: Author) -> None:
-        if author in self._list_authors:
-            raise Exception('Este e-mail já consta na base de dados.')
-        self._list_authors.append(author)
-        print(f'\n---Autor Cadastrado---\n{author}\n')
+    def save(self, author: Author) -> None:
+        if isinstance(author, Author):
+            if author in self._list_authors:
+                raise Exception('Este e-mail já consta na base de dados.')
+            self._list_authors.append(author)
+            print(f'\n---Autor Cadastrado---\n{author}\n')
+        else:
+            raise Exception('O argumento passado não é do tipo Autor')
 
     def all_authors(self) -> list:
         return self._list_authors.copy()
