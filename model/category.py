@@ -25,10 +25,6 @@ class Category:
 
     def __ne__(self, other: object) -> bool:
         return not self.__eq__(other)
-    
-    @property
-    def registration_time_category(self) -> datetime:
-        return self._registration_time
 
     @property
     def name_category(self) -> str:
