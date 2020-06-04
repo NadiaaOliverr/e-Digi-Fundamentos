@@ -23,7 +23,7 @@ def start():
         Category('Programação'), "1234", 220.56
     )
 
-    dao.save(repr(python_fluente))
+    dao.save(python_fluente)
     dao.save(python_basico)
 
 
