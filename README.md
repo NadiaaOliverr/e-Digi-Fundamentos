@@ -14,4 +14,4 @@ e-Digi é um pequeno sistema de gestão e venda de livros para uma editora. Nela
   `pip install -r requirements.txt`
 
 Na pasta raiz execute o arquivo `main.py` com o comando:
-`python3 main.py`
+`python3 -m controller.controller`
