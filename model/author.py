@@ -35,10 +35,6 @@ class Author:
     def email(self) -> str:
         return self._email
 
-    @property
-    def registration_time(self) -> datetime:
-        return self._registration_time
-
     @is_not_null
     def __set_name(self, name: str) -> None:
         self._name = name
