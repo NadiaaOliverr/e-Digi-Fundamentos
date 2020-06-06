@@ -39,7 +39,6 @@ class Book:
             f'Categoria: {self._category.name_category}\n'
             f'Edição: {self._edition}\n'
             f'Preço: R$ {self._price}\n'
-            f'Momento do cadastro: {self._registration_time.strftime("%d/%m/%Y, %H:%M:%S")}'
         )
 
     def __repr__(self) -> None:

@@ -21,7 +21,7 @@ class BookDao:
     def find_by_title(self, title: str) -> List[Book]:
         if len(title) >= 2:
             books_with_title = list(
-                filter(lambda books: title in books.title,  self._list_books))
+                filter(lambda books: title.lower() in books.title.lower(),  self._list_books))
             return books_with_title
         else:
             raise('É necessário ao menos 2 caracteres para fazer a busca')
