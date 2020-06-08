@@ -1,5 +1,4 @@
 """Executa as classes de model e dao."""
-
 from model import Book, Author, Category
 from dao import BookDao
 
@@ -17,15 +16,22 @@ def start():
         Category('Programação'), "1254", 120.56
     )
 
-    python_basico = Book(
-        'Python Básico', 'Resumo '*80, 'Sumário do Livro',
+    ciencias_basica = Book(
+        'Ciências Básica', 'Resumo '*80, 'Sumário do Livro',
         700, "978-85-08-22232-8", Author('Luciano Pereira', 'luciano@pereira.com.br'),
-        Category('Programação'), "1234", 220.56
+        Category('Ciências'), "1234", 220.56
     )
 
     dao.save(python_fluente)
-    dao.save(python_basico)
+    dao.save(ciencias_basica)
 
+    books_found = dao.find_by_title('py')
+    print('---Resultados da pesquisa---')
+    if books_found:
+        for book in books_found:
+                print(book)
+    else:
+        print('Não há livros com esse prefixo em nosso acervo')
 
 if __name__ == '__main__':
 

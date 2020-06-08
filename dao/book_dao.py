@@ -1,5 +1,7 @@
+from helpers import is_not_null
 from model import Book
 from typing import List
+
 
 class BookDao:
     """Banco de Dados de Livros"""
@@ -14,6 +16,15 @@ class BookDao:
             print(f'\n---Livro Cadastrado---\n{book}\n')
         else:
             raise Exception('O argumento passado não é do tipo Livro')
+
+    @is_not_null
+    def find_by_title(self, title: str) -> List[Book]:
+        if len(title) >= 2:
+            books_with_title = list(
+                filter(lambda books: title.lower() in books.title.lower(),  self._list_books))
+            return books_with_title
+        else:
+            raise('É necessário ao menos 2 caracteres para fazer a busca')
 
     def all_books(self) -> list:
         return self._list_books.copy()
