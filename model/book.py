@@ -114,3 +114,7 @@ class Book:
     @property
     def isbn(self) -> str:
         return self._isbn
+
+    @property
+    def price(self) -> float:
+        return self._price
