@@ -32,22 +32,22 @@ def register_sales():
     book_1 = 'Ciências Básica'
 
     book_2 = 'Python Fluente'
+
     
     sale_book_1 = Sale(book_1, 2)
     sale_book_2 = Sale(book_2, 5)
 
-    sales_dao = SaleDao()
-    sales_dao.save([
-        sale_book_1,
-        sale_book_2
-    ])
 
+    sales_dao = SaleDao()
+    sales_dao.add(sale_book_1)
+    sales_dao.add(sale_book_2)
+    sales_dao.save()
 
 def search_books(title):
 
     book_dao = BookDao()
 
-    books_found = book_dao.find_by_title(title)
+    books_found = book_dao.find_all_books_with_title(title)
     print('---Resultados da pesquisa---')
     if books_found:
         for book in books_found:

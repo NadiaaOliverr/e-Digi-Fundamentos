@@ -18,7 +18,7 @@ class BookDao:
             raise Exception('O argumento passado não é do tipo Livro')
 
     @is_not_null
-    def find_by_title(self, title: str) -> List[Book]:
+    def find_all_books_with_title(self, title: str) -> List[Book]:
         if len(title) >= 2:
             books_with_title = list(
                 filter(lambda books: title.lower() in books.title.lower(),  self.list_book))
@@ -26,3 +26,11 @@ class BookDao:
         else:
             raise('É necessário ao menos 2 caracteres para fazer a busca')
 
+    
+    @is_not_null
+    def find_by_title(self, title: str) -> Book:
+        book = next((book for book in self.list_book if title == book.title), None)
+        if book:
+            return book
+        raise Exception('Este título não consta no acervo')
+        
