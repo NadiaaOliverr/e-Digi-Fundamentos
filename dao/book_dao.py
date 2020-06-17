@@ -29,8 +29,8 @@ class BookDao:
     
     @is_not_null
     def find_by_title(self, title: str) -> Book:
-        book = next((book for book in self.list_book if title == book.title), None)
-        if book:
-            return book
+        for book in self.list_book:
+            if title.lower() == book.title.lower():
+                return book
         raise Exception('Este título não consta no acervo')
         
