@@ -41,7 +41,7 @@ def register_sales():
     sales_dao = SaleDao()
     sales_dao.add(sale_book_1)
     sales_dao.add(sale_book_2)
-    sales_dao.save()
+    sales_dao.checkout()
 
 def search_books(title):
 

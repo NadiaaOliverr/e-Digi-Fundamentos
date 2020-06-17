@@ -14,11 +14,8 @@ class SaleDao:
         self._sale.append(sale)
         self.list_sales.append(sale)
     
-    def save(self):
-        "Salva a venda, enviando para o banco."
-        self.__print_sale_information()
     
-    def __print_sale_information(self):
+    def checkout(self):
         "Printa as informações do banco. É similar a um select * com um sum"
         print('--- Venda realizada com sucesso ---')
         total_sale = 0
