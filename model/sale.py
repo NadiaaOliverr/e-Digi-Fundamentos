@@ -5,7 +5,7 @@ from dao import BookDao
 class Sale:
     """Modelo de Venda"""
 
-    __attributes = ('_title_book', '_quantity_book')
+    __attributes = ('_book', '_quantity_sale', '_registration_time')
 
     book_dao = BookDao()
 
