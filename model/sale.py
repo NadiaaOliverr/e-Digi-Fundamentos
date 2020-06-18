@@ -40,5 +40,5 @@ class Sale:
         self._quantity_sale = quantity_book
 
     def __set_book_for_sale(self, title_book: str) -> Book:
-        book = self.book_dao.find_by_title(title_book)
+        book = self.book_dao.find_one(title_book)
         self._book = book

@@ -47,7 +47,7 @@ def search_books(title):
 
     book_dao = BookDao()
 
-    books_found = book_dao.find_all_books_with_title(title)
+    books_found = book_dao.find_many(title)
     print('---Resultados da pesquisa---')
     if books_found:
         for book in books_found:

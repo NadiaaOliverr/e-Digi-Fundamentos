@@ -10,13 +10,11 @@ class SaleDao:
         self._sale = []
 
     def add(self, sale: 'Sale') -> None:
-        "Adiciona a venda. É similar ao insert do banco"
         self._sale.append(sale)
         self.list_sales.append(sale)
     
     
     def checkout(self):
-        "Printa as informações do banco. É similar a um select * com um sum"
         print('--- Venda realizada com sucesso ---')
         total_sale = 0
         for item in self._sale:
