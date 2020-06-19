@@ -6,25 +6,31 @@ from typing import List
 class BookDao:
     """Banco de Dados de Livros"""
 
-    _list_books: List[Book] = []
+    list_book: List[Book] = []
 
     def save(self, book: Book) -> None:
         if isinstance(book, Book):
-            if book in self._list_books:
+            if book in self.list_book:
                 raise Exception('Este título já consta em nossos acervos.')
-            self._list_books.append(book)
+            self.list_book.append(book)
             print(f'\n---Livro Cadastrado---\n{book}\n')
         else:
             raise Exception('O argumento passado não é do tipo Livro')
 
     @is_not_null
-    def find_by_title(self, title: str) -> List[Book]:
+    def find_many(self, title: str) -> List[Book]:
         if len(title) >= 2:
             books_with_title = list(
-                filter(lambda books: title.lower() in books.title.lower(),  self._list_books))
+                filter(lambda books: title.lower() in books.title.lower(),  self.list_book))
             return books_with_title
         else:
             raise('É necessário ao menos 2 caracteres para fazer a busca')
 
-    def all_books(self) -> list:
-        return self._list_books.copy()
+    
+    @is_not_null
+    def find_one(self, title: str) -> Book:
+        for book in self.list_book:
+            if title.lower() == book.title.lower():
+                return book
+        raise Exception('Este título não consta no acervo')
+        

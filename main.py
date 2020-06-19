@@ -1,14 +1,16 @@
 """Executa as classes de model e dao."""
-from model import Book, Author, Category
-from dao import BookDao
+from model import Book, Author, Category, Sale
+from dao import BookDao, SaleDao
 
 __author__ = "Nádia Oliveira"
 __email__ = "nadiaaoliverr@gmail.com"
 __status__ = "Em desenvolvimento"
 
 
-def start():
-    dao = BookDao()
+
+def register_books_database():
+
+    book_dao = BookDao()
 
     python_fluente = Book(
         'Python Fluente', 'Resumo '*80, 'Sumário do Livro',
@@ -22,10 +24,30 @@ def start():
         Category('Ciências'), "1234", 220.56
     )
 
-    dao.save(python_fluente)
-    dao.save(ciencias_basica)
+    book_dao.save(python_fluente)
+    book_dao.save(ciencias_basica)
 
-    books_found = dao.find_by_title('py')
+def register_sales():
+
+    book_1 = 'Ciências Básica'
+
+    book_2 = 'Python Fluente'
+
+    
+    sale_book_1 = Sale(book_1, 2)
+    sale_book_2 = Sale(book_2, 5)
+
+
+    sales_dao = SaleDao()
+    sales_dao.add(sale_book_1)
+    sales_dao.add(sale_book_2)
+    sales_dao.checkout()
+
+def search_books(title):
+
+    book_dao = BookDao()
+
+    books_found = book_dao.find_many(title)
     print('---Resultados da pesquisa---')
     if books_found:
         for book in books_found:
@@ -33,6 +55,8 @@ def start():
     else:
         print('Não há livros com esse prefixo em nosso acervo')
 
+   
 if __name__ == '__main__':
 
-    start()
+    register_books_database()
+    register_sales()
