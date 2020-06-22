@@ -27,6 +27,12 @@ class TestCategory(unittest.TestCase):
         with self.assertRaises(Exception):
             dao.save(category_already_exists_programming)
 
+    def test_should_throw_an_exception_when_save_in_database_other_type_different_of_category(self):
+        dao = CategoryDao()
+        type_str = 'Type str'
+        with self.assertRaises(Exception):
+            dao.save(type_str)
+
 
 if __name__ == '__main__':
     unittest.main()
