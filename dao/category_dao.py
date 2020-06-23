@@ -1,19 +1,18 @@
 from model import Category
 from typing import List
 
+
 class CategoryDao:
     """Banco de Dados de Categorias"""
 
-    _list_categories: List[Category] = []
+    list_categories: List[Category] = []
 
-    def save(self, category: Category) -> None:
+    def save(self, category: Category) -> str:
         if isinstance(category, Category):
-            if category in self._list_categories:
+            if category in self.list_categories:
                 raise Exception('Esta categoria já consta na base de dados.')
-            self._list_categories.append(category)
-            print(f'\n---Categoria Cadastrada---\n{category}\n')
+            self.list_categories.append(category)
+            return f'\n---Categoria Cadastrada---\n{category}\n'
         else:
             raise Exception('O argumento passado não é do tipo Categoria')
 
-    def all_categories(self) -> list:
-        return self._list_categories.copy()
