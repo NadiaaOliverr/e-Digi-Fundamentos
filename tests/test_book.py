@@ -85,6 +85,13 @@ class TestBook(unittest.TestCase):
         with self.assertRaises(Exception):
             dao.save(type_str)
 
+    def test_should_print_the_data_of_book_save_in_database(self):
+        dao = BookDao()
+        book_python_fluente = self._setup()
+        expected_result = f'\n---Livro Cadastrado---\n{book_python_fluente}\n'
+        
+        self.assertEqual(dao.save(book_python_fluente), expected_result)
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -13,7 +13,7 @@ class BookDao:
             if book in self.list_book:
                 raise Exception('Este título já consta em nossos acervos.')
             self.list_book.append(book)
-            print(f'\n---Livro Cadastrado---\n{book}\n')
+            return f'\n---Livro Cadastrado---\n{book}\n'
         else:
             raise Exception('O argumento passado não é do tipo Livro')
 
