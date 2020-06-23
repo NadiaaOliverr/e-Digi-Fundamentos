@@ -22,9 +22,12 @@ class BookDao:
         if len(title) >= 2:
             books_with_title = list(
                 filter(lambda books: title.lower() in books.title.lower(),  self.list_book))
-            return books_with_title
+            if books_with_title:
+                return books_with_title
+            else:
+                raise Exception('Este título não consta no acervo')
         else:
-            raise('É necessário ao menos 2 caracteres para fazer a busca')
+            raise Exception('É necessário ao menos 2 caracteres para fazer a busca')
 
     
     @is_not_null

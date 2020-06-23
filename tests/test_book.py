@@ -84,6 +84,20 @@ class TestBook(unittest.TestCase):
         type_str = 'Type str'
         with self.assertRaises(Exception):
             dao.save(type_str)
+    
+    def test_should_throw_an_exception_when_find_by_book_not_exists_in_database(self):
+        dao = BookDao()
+        with self.assertRaises(Exception):
+            dao.find_one('Ciências')
+        
+        with self.assertRaises(Exception):
+            dao.find_many('Ciências')
+    
+    def test_should_throw_an_exception_when_find_by_many_book_with_title_less_than_two_charactere(self):
+        dao = BookDao()
+    
+        with self.assertRaises(Exception):
+            dao.find_many('P')
 
     def test_should_print_the_data_of_book_save_in_database(self):
         dao = BookDao()
@@ -91,6 +105,15 @@ class TestBook(unittest.TestCase):
         expected_result = f'\n---Livro Cadastrado---\n{book_python_fluente}\n'
         
         self.assertEqual(dao.save(book_python_fluente), expected_result)
+
+    def test_should_return_only_one_instance_the_book_when_find_by_one_in_database(self):
+        dao = BookDao()
+        self.assertIsInstance(dao.find_one('Python Fluente'), Book)
+    
+    def test_should_return_list_of_many_book_when_find_by_many_in_database(self):
+        dao = BookDao()
+        self.assertIsInstance(dao.find_many('Python Fluente'), list)
+
 
 
 if __name__ == '__main__':
