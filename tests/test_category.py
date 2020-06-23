@@ -8,15 +8,15 @@ class TestCategory(unittest.TestCase):
 
     def test_should_throw_an_exception_when_the_name_category__is_none(self):
         with self.assertRaises(Exception):
-            category_none = Category(None)
+            Category(None)
 
     def test_should_throw_an_exception_when_the_name_category_is_empty(self):
         with self.assertRaises(Exception):
-            category_empty = Category('')
+            Category('')
 
     def test_should_throw_an_exception_when_the_name_category_is_empty_full_spaces(self):
         with self.assertRaises(Exception):
-            category_empty_spaces = Category('    ')
+            Category('    ')
 
     def test_should_throw_an_exception_when_add_name_of_category_already_exists_in_database(self):
         dao = CategoryDao()
