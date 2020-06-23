@@ -51,6 +51,13 @@ class TestAuthor(unittest.TestCase):
         type_str = 'Type str'
         with self.assertRaises(Exception):
             dao.save(type_str)
+    
+    def test_should_print_the_data_of_author_save_in_database(self):
+        dao = AuthorDao()
+        author_luciano = self._setup()
+        expected_result = f'\n---Autor Cadastrado---\n{author_luciano}\n'
+        
+        self.assertEqual(dao.save(author_luciano), expected_result)
 
 
 if __name__ == '__main__':
