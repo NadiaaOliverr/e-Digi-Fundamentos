@@ -6,46 +6,45 @@ from dao import AuthorDao
 
 class TestAuthor(unittest.TestCase):
 
+    def _setup(self, name='Luciano Ramalho', email='luciano@luciano.com.br'):
+        return Author(name, email)
+
     def test_should_throw_an_exception_when_the_name_author_is_none(self):
         with self.assertRaises(Exception):
-            author_name_is_none = Author(None, 'autor@autor.com.br')
+            self._setup(name=None)
 
     def test_should_throw_an_exception_when_the_name_author_is_empty(self):
         with self.assertRaises(Exception):
-            author_name_is_empty = Author('', 'autor@autor.com.br')
+            self._setup(name='')
 
     def test_should_throw_an_exception_when_the_name_author_is_empty_full_spaces(self):
         with self.assertRaises(Exception):
-            author_name_with_empty_spaces = Author('   ', 'autor@autor.com.br')
+            self._setup(name='     ')
 
     def test_should_throw_an_exception_when_the_email_author_is_none(self):
         with self.assertRaises(Exception):
-            author_email_is_none = Author('Luciano Ramalho', None)
+            self._setup(email=None)
 
     def test_should_throw_an_exception_when_the_email_author_is_empty(self):
         with self.assertRaises(Exception):
-            author_email_is_empty = Author('Luciano Ramalho', '')
+            self._setup(email='')
 
     def test_should_throw_an_exception_when_the_name_email_is_empty_full_spaces(self):
         with self.assertRaises(Exception):
-            author_email_with_empty_spaces = Author('Luciano Ramalho', '     ')
+            self._setup(email='      ')
 
     def test_should_throw_an_exception_when_the_email_not_is_valid(self):
         with self.assertRaises(Exception):
-            author_email_not_valid = Author('Luciano Ramalho', 'luciano')
+            self._setup(email='luciano')
 
         with self.assertRaises(Exception):
-            author_email_not_valid = Author('Luciano Ramalho', 'luciano@')
+           self._setup(email='luciano@')
 
     def test_should_throw_an_exception_when_add_email_of_author_already_exists_in_database(self):
         dao = AuthorDao()
-        author_luciano = Author('Luciano Ramalho', 'luciano@luciano.com')
-        author_already_exists_luciano = Author(
-            'Luciano Ramalho Souza', 'luciano@luciano.com')
-        dao.save(author_luciano)
-
         with self.assertRaises(Exception):
-            dao.save(author_already_exists_luciano)
+            dao.save(self._setup())
+            dao.save(self._setup())
 
     def test_should_throw_an_exception_when_save_in_database_other_type_different_of_author(self):
         dao = AuthorDao()
