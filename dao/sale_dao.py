@@ -1,4 +1,5 @@
 from dao import BookDao
+import model.sale as class_sale
 from typing import List
 from datetime import datetime
 
@@ -10,15 +11,19 @@ class SaleDao:
         self._sale = []
 
     def add(self, sale: 'Sale') -> None:
-        self._sale.append(sale)
-        self.list_sales.append(sale)
+        if isinstance(sale, class_sale.Sale):
+            self._sale.append(sale)
+            self.list_sales.append(sale)
+        else:
+            raise Exception('O argumento passado não é do tipo Sale')
     
     
-    def checkout(self):
-        print('--- Venda realizada com sucesso ---')
+    def checkout(self) -> str:
+        informations = '\n--- Venda realizada com sucesso ---\n'
         total_sale = 0
         for item in self._sale:
             total_sale += item.price_book*item.quantity_sale
-            print(item)
-        print(f'Preço total: R$ {total_sale:.2f}')
+            informations += str(item)
+        informations += f'\nPreço total: R$ {total_sale:.2f}'
         self._sale = []
+        return informations

@@ -15,7 +15,7 @@ class Sale:
         self._registration_time = datetime.now()
 
     def __str__(self) -> str:
-        return f'Livro: {self._book.title} - Quantidade: {self.quantity_sale} - Preço: {self._book.price}'
+        return f'Livro: {self._book.title} - Quantidade: {self.quantity_sale} - Preço: {self._book.price}\n'
 
     def __repr__(self) -> str:
         class_name = type(self).__name__
