@@ -15,7 +15,7 @@ class SaleDao:
             self._sale.append(sale)
             self.list_sales.append(sale)
         else:
-            raise Exception('O argumento passado não é do tipo Sale')
+            raise TypeError('O argumento passado não é do tipo Sale')
     
     
     def checkout(self) -> str:

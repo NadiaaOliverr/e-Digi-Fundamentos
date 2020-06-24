@@ -36,7 +36,7 @@ class Sale:
     @quantity_sale.setter
     def quantity_sale(self, quantity_book: int) -> None:
         if quantity_book <= 0:
-            raise Exception('A quantidade de livros deve ser de pelo menos 1')
+            raise ValueError('A quantidade de livros deve ser de pelo menos 1')
         self._quantity_sale = quantity_book
 
     def __set_book_for_sale(self, title_book: str) -> Book:

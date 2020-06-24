@@ -74,7 +74,7 @@ class Book:
     @is_not_null
     def __set_resume(self, resume: str) -> None:
         if len(resume) < 500:
-            raise Exception('O resumo precisa conter mais de 500 caracteres')
+            raise ValueError('O resumo precisa conter mais de 500 caracteres')
         self._resume=resume
 
     @ is_not_null
@@ -83,14 +83,14 @@ class Book:
 
     def __set_number_of_pages(self, number_of_pages: int) -> None:
         if number_of_pages < 0:
-            raise Exception('O número de páginas precisa ser maior que zero')
+            raise ValueError('O número de páginas precisa ser maior que zero')
         self._number_of_pages=number_of_pages
 
     def __set_isbn(self, isbn: str) -> None:
         pattern=r"978-[0-9]{2}-[0-9]{2}-[0-9]{5}-[0-9]{1}"
         isbn_is_valid=re.search(pattern, isbn)
         if not isbn_is_valid:
-            raise Exception('O ISBN passado não possui um formato válido')
+            raise ValueError('O ISBN passado não possui um formato válido')
         self._isbn=isbn
             
 
@@ -98,13 +98,13 @@ class Book:
         pattern=r"1[0-9]*"
         edition_is_valid=re.search(pattern, edition)
         if not edition_is_valid:
-            raise Exception('A edição digitada não possui formato válido')
+            raise ValueError('A edição digitada não possui formato válido')
         self._edition=edition
         
 
     def __set_price(self, price: float) -> None:
         if not price >= 0:
-            raise Exception('O preço deve ser maior que zero')
+            raise ValueError('O preço deve ser maior que zero')
         self._price=price
         
     @property

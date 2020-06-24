@@ -9,9 +9,9 @@ class AuthorDao:
     def save(self, author: Author) -> str:
         if isinstance(author, Author):
             if author in self.list_authors:
-                raise Exception('Este e-mail já consta na base de dados.')
+                raise ValueError('Este e-mail já consta na base de dados.')
             self.list_authors.append(author)
             return f'\n---Autor Cadastrado---\n{author}\n'
         else:
-            raise Exception('O argumento passado não é do tipo Autor')
+            raise TypeError('O argumento passado não é do tipo Autor')
 

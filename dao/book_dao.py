@@ -11,11 +11,11 @@ class BookDao:
     def save(self, book: Book) -> None:
         if isinstance(book, Book):
             if book in self.list_book:
-                raise Exception('Este título já consta em nossos acervos.')
+                raise ValueError('Este título já consta em nossos acervos.')
             self.list_book.append(book)
             return f'\n---Livro Cadastrado---\n{book}\n'
         else:
-            raise Exception('O argumento passado não é do tipo Livro')
+            raise TypeError('O argumento passado não é do tipo Livro')
 
     @is_not_null
     def find_many(self, title: str) -> List[Book]:
@@ -25,9 +25,9 @@ class BookDao:
             if books_with_title:
                 return books_with_title
             else:
-                raise Exception('Este título não consta no acervo')
+                KeyError('Este título não consta no acervo')
         else:
-            raise Exception('É necessário ao menos 2 caracteres para fazer a busca')
+            raise ValueError('É necessário ao menos 2 caracteres para fazer a busca')
 
     
     @is_not_null
@@ -35,5 +35,5 @@ class BookDao:
         for book in self.list_book:
             if title.lower() == book.title.lower():
                 return book
-        raise Exception('Este título não consta no acervo')
+        raise KeyError('Este título não consta no acervo')
         
