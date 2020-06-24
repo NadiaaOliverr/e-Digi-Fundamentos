@@ -24,8 +24,8 @@ def register_books_database():
         Category('Ciências'), "1234", 220.56
     )
 
-    book_dao.save(python_fluente)
-    book_dao.save(ciencias_basica)
+    print(book_dao.save(python_fluente))
+    print(book_dao.save(ciencias_basica))
 
 def register_sales():
 
@@ -41,7 +41,7 @@ def register_sales():
     sales_dao = SaleDao()
     sales_dao.add(sale_book_1)
     sales_dao.add(sale_book_2)
-    sales_dao.checkout()
+    print(sales_dao.checkout())
 
 def search_books(title):
 
