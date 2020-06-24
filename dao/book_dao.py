@@ -25,7 +25,7 @@ class BookDao:
             if books_with_title:
                 return books_with_title
             else:
-                KeyError('Este título não consta no acervo')
+                raise KeyError('Este título não consta no acervo')
         else:
             raise ValueError('É necessário ao menos 2 caracteres para fazer a busca')
 

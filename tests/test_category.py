@@ -7,15 +7,15 @@ from dao import CategoryDao
 class TestCategory(unittest.TestCase):
 
     def test_should_throw_an_exception_when_the_name_category__is_none(self):
-        with self.assertRaises(Exception):
+        with self.assertRaises(ValueError):
             Category(None)
 
     def test_should_throw_an_exception_when_the_name_category_is_empty(self):
-        with self.assertRaises(Exception):
+        with self.assertRaises(ValueError):
             Category('')
 
     def test_should_throw_an_exception_when_the_name_category_is_empty_full_spaces(self):
-        with self.assertRaises(Exception):
+        with self.assertRaises(ValueError):
             Category('    ')
 
     def test_should_throw_an_exception_when_add_name_of_category_already_exists_in_database(self):
@@ -24,14 +24,14 @@ class TestCategory(unittest.TestCase):
         category_already_exists_programming = Category('Programming')
         dao.save(category_programming)
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(ValueError):
             dao.save(category_already_exists_programming)
 
     def test_should_throw_an_exception_when_save_in_database_other_type_different_of_category(self):
         dao = CategoryDao()
         type_str = 'Type str'
         
-        with self.assertRaises(Exception):
+        with self.assertRaises(TypeError):
             dao.save(type_str)
 
     def test_should_print_the_data_of_category_save_in_database(self):
