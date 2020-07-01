@@ -13,9 +13,9 @@ class Book:
     )
 
     def __init__(
-            self, title: str, resume: str, summary: str, number_of_pages: int,
-            isbn: str, author: Author, category: Category, edition: str, price: float
-        ) -> None:
+        self, title: str, resume: str, summary: str, number_of_pages: int,
+        isbn: str, author: Author, category: Category, edition: str, price: float
+    ) -> None:
 
         self.__set_title(title)
         self.__set_resume(resume)
@@ -44,18 +44,18 @@ class Book:
     def __repr__(self) -> None:
         class_name = type(self).__name__
         return (
-                '{}({!r}, {!r}, {!r}, {!r}, {!r}, {!r}, {!r}, {!r}, {!r}, {!r})'.format(
-                    class_name,
-                    self._title,
-                    self._resume,
-                    self._sumary,
-                    self._number_of_pages,
-                    self._isbn,
-                    self._author.name,
-                    self._category.name_category,
-                    self._edition,
-                    self._price,
-                    self._registration_time
+            '{}({!r}, {!r}, {!r}, {!r}, {!r}, {!r}, {!r}, {!r}, {!r}, {!r})'.format(
+                class_name,
+                self._title,
+                self._resume,
+                self._sumary,
+                self._number_of_pages,
+                self._isbn,
+                self._author.name,
+                self._category.name_category,
+                self._edition,
+                self._price,
+                self._registration_time
             )
         )
 
@@ -69,48 +69,46 @@ class Book:
 
     @ is_not_null
     def __set_title(self, title: str) -> None:
-        self._title=title
+        self._title = title
 
     @is_not_null
     def __set_resume(self, resume: str) -> None:
         if len(resume) < 500:
             raise ValueError('O resumo precisa conter mais de 500 caracteres')
-        self._resume=resume
+        self._resume = resume
 
     @ is_not_null
     def __set_summary(self, summary: str) -> None:
-        self._sumary=summary
+        self._sumary = summary
 
     def __set_number_of_pages(self, number_of_pages: int) -> None:
         if number_of_pages < 0:
             raise ValueError('O número de páginas precisa ser maior que zero')
-        self._number_of_pages=number_of_pages
+        self._number_of_pages = number_of_pages
 
     def __set_isbn(self, isbn: str) -> None:
-        pattern=r"978-[0-9]{2}-[0-9]{2}-[0-9]{5}-[0-9]{1}"
-        isbn_is_valid=re.search(pattern, isbn)
+        pattern = r"978-[0-9]{2}-[0-9]{2}-[0-9]{5}-[0-9]{1}"
+        isbn_is_valid = re.search(pattern, isbn)
         if not isbn_is_valid:
             raise ValueError('O ISBN passado não possui um formato válido')
-        self._isbn=isbn
-            
+        self._isbn = isbn
 
     def __set_edition(self, edition: str) -> None:
-        pattern=r"1[0-9]*"
-        edition_is_valid=re.search(pattern, edition)
+        pattern = r"1[0-9]*"
+        edition_is_valid = re.search(pattern, edition)
         if not edition_is_valid:
             raise ValueError('A edição digitada não possui formato válido')
-        self._edition=edition
-        
+        self._edition = edition
 
     def __set_price(self, price: float) -> None:
         if not price >= 0:
             raise ValueError('O preço deve ser maior que zero')
-        self._price=price
-        
+        self._price = price
+
     @property
     def title(self) -> str:
         return self._title
-    
+
     @property
     def isbn(self) -> str:
         return self._isbn

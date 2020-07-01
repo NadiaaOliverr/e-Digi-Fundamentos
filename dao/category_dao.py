@@ -13,10 +13,7 @@ class CategoryDao:
 
         if category in self.list_categories:
             raise ValueError('Esta categoria já consta na base de dados.')
-        
-        self.list_categories.append(category)
-        
-        return f'\n---Categoria Cadastrada---\n{category}\n'
-        
-            
 
+        self.list_categories.append(category)
+
+        return f'\n---Categoria Cadastrada---\n{category}\n'
