@@ -5,6 +5,9 @@ from app.model.category import Category
 from app.model.sale import Sale
 from app.dao.book_dao import BookDao
 from app.dao.sale_dao import SaleDao
+from app.dao.category_dao import CategoryDao
+from app.dao.author_dao import AuthorDao
+
 
 
 __author__ = "Nádia Oliveira"
@@ -12,6 +15,27 @@ __email__ = "nadiaaoliverr@gmail.com"
 __status__ = "Em desenvolvimento"
 
 
+def register_categories_database():
+    
+    dao = CategoryDao()
+
+    programming = Category('Programação')
+    ciencias = Category('Ciências')
+    
+    print(dao.save(programming))
+    print(dao.save(ciencias))
+
+
+
+def register_authors_database():
+    
+    authors = AuthorDao()
+
+    luciano_ramalho = Author('Luciano Ramalho', 'luciano@luciano.com.br')
+    luciano_pereira = Author('Luciano Pereira', 'luciano@pereira.com.br')
+
+    print(authors.save(luciano_ramalho))
+    print(authors.save(luciano_pereira))
 
 def register_books_database():
 
@@ -62,6 +86,8 @@ def search_books(title):
 
    
 if __name__ == '__main__':
-
+    
+    register_authors_database()
+    register_categories_database()
     register_books_database()
     register_sales()

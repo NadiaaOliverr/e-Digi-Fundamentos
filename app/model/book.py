@@ -1,6 +1,9 @@
 from app.helpers.decorators import is_not_null
 from app.model.author import Author
 from app.model.category import Category
+from app.dao.author_dao import AuthorDao
+from app.dao.category_dao import CategoryDao
+
 
 from datetime import datetime
 import re
@@ -14,6 +17,9 @@ class Book:
         '_isbn', '_author', '_category', '_edition', '_price'
     )
 
+    author_dao = AuthorDao()
+    category_dao = CategoryDao()
+
     def __init__(
         self, title: str, resume: str, summary: str, number_of_pages: int,
         isbn: str, author: Author, category: Category, edition: str, price: float
@@ -24,8 +30,8 @@ class Book:
         self.__set_summary(summary)
         self.__set_number_of_pages(number_of_pages)
         self.__set_isbn(isbn)
-        self._author = author 
-        self._category = category
+        self.__set_author(author)
+        self.__set_category(category)
         self.__set_edition(edition)
         self.__set_price(price)
         self._registration_time = datetime.now()
@@ -95,6 +101,15 @@ class Book:
         if not isbn_is_valid:
             raise ValueError('O ISBN passado não possui um formato válido')
         self._isbn = isbn
+    
+    def __set_author(self, author):
+        author = self.author_dao.find_one(author.email)
+        self._author = author
+
+    def __set_category(self, category):
+        category = self.category_dao.find_one(category.name_category)
+        self._category = category
+
 
     def __set_edition(self, edition: str) -> None:
         pattern = r"1[0-9]*"

@@ -1,3 +1,4 @@
+from app.helpers.decorators import is_not_null
 from app.model.category import Category
 
 from typing import List
@@ -18,3 +19,11 @@ class CategoryDao:
         self.list_categories.append(category)
 
         return category
+    
+    @is_not_null
+    def find_one(self, name_category: str) -> Category:
+        for category in self.list_categories:
+            if name_category.lower() == category.name_category.lower():
+                return category
+        raise KeyError('Esta categoria não consta no acervo')
+
