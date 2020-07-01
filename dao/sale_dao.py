@@ -11,12 +11,11 @@ class SaleDao:
         self._sale = []
 
     def add(self, sale: 'Sale') -> None:
-        if isinstance(sale, class_sale.Sale):
-            self._sale.append(sale)
-            self.list_sales.append(sale)
-        else:
+        if not isinstance(sale, class_sale.Sale):
             raise TypeError('O argumento passado não é do tipo Sale')
-    
+        
+        self._sale.append(sale)
+        self.list_sales.append(sale)
     
     def checkout(self) -> str:
         informations = '\n--- Venda realizada com sucesso ---\n'

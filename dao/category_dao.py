@@ -8,11 +8,15 @@ class CategoryDao:
     list_categories: List[Category] = []
 
     def save(self, category: Category) -> str:
-        if isinstance(category, Category):
-            if category in self.list_categories:
-                raise ValueError('Esta categoria já consta na base de dados.')
-            self.list_categories.append(category)
-            return f'\n---Categoria Cadastrada---\n{category}\n'
-        else:
+        if not isinstance(category, Category):
             raise TypeError('O argumento passado não é do tipo Categoria')
+
+        if category in self.list_categories:
+            raise ValueError('Esta categoria já consta na base de dados.')
+        
+        self.list_categories.append(category)
+        
+        return f'\n---Categoria Cadastrada---\n{category}\n'
+        
+            
 
