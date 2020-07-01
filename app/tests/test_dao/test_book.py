@@ -2,6 +2,9 @@ from app.model.book import Book
 from app.model.category import Category
 from app.model.author import Author
 from app.dao.book_dao import BookDao
+from app.dao.category_dao import CategoryDao
+from app.dao.author_dao import AuthorDao
+
 
 import unittest
 
@@ -13,7 +16,18 @@ class TestBookDatabase(unittest.TestCase):
                 'luciano@luciano.com.br'),category=Category('Programação'),
                 edition="1254", price=120.56):
         
+        category_dao = CategoryDao()
+        category_dao.save(Category('Programação'))
+
+        author_dao = AuthorDao()
+        author_dao.save(Author('Luciano Ramalho','luciano@luciano.com.br'))
+
         return Book(title, resume, summary, number_of_page, isbn, author, category, edition, price)
+    
+    def tearDown(self):
+        BookDao.list_book = []
+        CategoryDao.list_categories = []
+        AuthorDao.list_authors = []
 
     def test_should_throw_an_exception_when_add_isbn_of_book_already_exists(self):
         dao = BookDao()
@@ -56,10 +70,12 @@ class TestBookDatabase(unittest.TestCase):
 
     def test_should_return_only_one_instance_the_book_when_find_by_one(self):
         dao = BookDao()
+        dao.save(self._setup())
         self.assertIsInstance(dao.find_one('Python Fluente'), Book)
     
     def test_should_return_list_of_many_book_when_find_by_many(self):
         dao = BookDao()
+        dao.save(self._setup())
         self.assertIsInstance(dao.find_many('Python Fluente'), list)
 
 if __name__ == '__main__':

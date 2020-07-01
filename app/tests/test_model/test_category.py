@@ -1,5 +1,4 @@
 from app.model.category import Category
-from app.dao.category_dao import CategoryDao
 
 import unittest
 

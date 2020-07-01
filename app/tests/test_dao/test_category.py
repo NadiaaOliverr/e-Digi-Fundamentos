@@ -13,6 +13,9 @@ class TestCategoryDatabase(unittest.TestCase):
 
         with self.assertRaises(ValueError):
             dao.save(category_already_exists_programming)
+    
+    def tearDown(self):
+        CategoryDao.list_categories = []
 
     def test_should_throw_an_exception_when_save_other_type_different_of_category(self):
         dao = CategoryDao()
@@ -20,6 +23,11 @@ class TestCategoryDatabase(unittest.TestCase):
         
         with self.assertRaises(TypeError):
             dao.save(type_str)
+
+    def test_should_throw_an_exception_when_find_by_book_not_exists(self):
+        dao = CategoryDao()
+        with self.assertRaises(KeyError):
+            dao.find_one('Ciências')
 
     def test_should_print_the_data_of_category_save(self):
         dao = CategoryDao()

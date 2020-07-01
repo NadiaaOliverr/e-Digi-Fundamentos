@@ -7,6 +7,9 @@ class TestAuthorDatabase(unittest.TestCase):
 
     def _setup(self, name='Luciano Ramalho', email='luciano@luciano.com.br'):
         return Author(name, email)
+
+    def tearDown(self):
+        AuthorDao.list_authors = []
     
     def test_should_throw_an_exception_when_add_email_of_author_already_exists(self):
         dao = AuthorDao()

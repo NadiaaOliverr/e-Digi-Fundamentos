@@ -18,6 +18,7 @@ Na pasta raiz execute o arquivo `main.py` com o comando:
 
 Para executar os testes execute na pasta raiz o seguinte comando:
 
-`python3 -m unittest tests/main.py`
+`python3 -m unittest app/tests/main.py`
 
+<!-- python3 -m unittest discover -s app/tests -->
 <!-- `python3 -m unittest discover -s tests -p "test_*"` -->

@@ -1,7 +1,8 @@
 from app.model.book import Book
 from app.model.category import Category
 from app.model.author import Author
-from app.dao.book_dao import BookDao
+from app.dao.category_dao import CategoryDao
+from app.dao.author_dao import AuthorDao
 
 import unittest
 
@@ -14,8 +15,17 @@ class TestBook(unittest.TestCase):
                 'luciano@luciano.com.br'),category=Category('Programação'),
                 edition="1254", price=120.56):
         
+        category_dao = CategoryDao()
+        category_dao.save(Category('Programação'))
+
+        author_dao = AuthorDao()
+        author_dao.save(Author('Luciano Ramalho', 'luciano@luciano.com.br'))
+        
         return Book(title, resume, summary, number_of_page, isbn, author, category, edition, price)
 
+    def tearDown(self):
+        CategoryDao.list_categories = []
+        AuthorDao.list_authors = []
 
     def test_should_throw_an_exception_when_the_field_is_none(self):
         with self.assertRaises(ValueError):
