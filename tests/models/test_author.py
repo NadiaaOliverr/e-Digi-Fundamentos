@@ -37,25 +37,5 @@ class TestAuthor(unittest.TestCase):
         with self.assertRaises(ValueError):
            self._setup(email='luciano@')
 
-    def test_should_throw_an_exception_when_add_email_of_author_already_exists_in_database(self):
-        dao = AuthorDao()
-        with self.assertRaises(ValueError):
-            dao.save(self._setup())
-            dao.save(self._setup())
-
-    def test_should_throw_an_exception_when_save_in_database_other_type_different_of_author(self):
-        dao = AuthorDao()
-        type_str = 'Type str'
-        with self.assertRaises(TypeError):
-            dao.save(type_str)
-    
-    def test_should_print_the_data_of_author_save_in_database(self):
-        dao = AuthorDao()
-        author_luciano = self._setup()
-        expected_result = f'\n---Autor Cadastrado---\n{author_luciano}\n'
-        
-        self.assertEqual(dao.save(author_luciano), expected_result)
-
-
 if __name__ == '__main__':
     unittest.main()
