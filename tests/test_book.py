@@ -14,39 +14,38 @@ class TestBook(unittest.TestCase):
         return Book(title, resume, summary, number_of_page, isbn, author, category, edition, price)
 
 
-    def test_should_throw_an_exception_when_the_title_book_is_none(self):
+    def test_should_throw_an_exception_when_the_field_is_none(self):
         with self.assertRaises(ValueError):
             self._setup(title=None)
+        
+        with self.assertRaises(ValueError):
+            self._setup(resume=None)
+        
+        with self.assertRaises(ValueError):
+            self._setup(summary=None)
 
-    def test_should_throw_an_exception_when_the_title_book_is_empty(self):
+    def test_should_throw_an_exception_when_the_field_is_empty(self):
         with self.assertRaises(ValueError):
             self._setup(title='')
+        
+        with self.assertRaises(ValueError):
+            self._setup(resume='')
+        
+        with self.assertRaises(ValueError):
+            self._setup(summary='')
 
     def test_should_throw_an_exception_when_the_title_book_is_empty_full_spaces(self):
         with self.assertRaises(ValueError):
             self._setup(title='   ')
 
-    def test_should_throw_an_exception_when_the_resume_book_is_none(self):
-        with self.assertRaises(ValueError):
-            self._setup(resume=None)
 
-    def test_should_throw_an_exception_when_the_resume_book_is_empty(self):
+    def test_should_throw_an_exception_when_the_field_is_empty_full_spaces(self):
         with self.assertRaises(ValueError):
-           self._setup(resume='')
+            self._setup(title='   ')
 
-    def test_should_throw_an_exception_when_the_resume_book_is_empty_full_spaces(self):
         with self.assertRaises(ValueError):
             self._setup(resume='   ')
 
-    def test_should_throw_an_exception_when_the_summary_book_is_none(self):
-        with self.assertRaises(ValueError):
-            self._setup(summary=None)
-
-    def test_should_throw_an_exception_when_the_summary_book_is_empty(self):
-        with self.assertRaises(ValueError):
-            self._setup(summary='')
-
-    def test_should_throw_an_exception_when_the_summary_book_is_empty_full_spaces(self):
         with self.assertRaises(ValueError):
             self._setup(summary='     ')
 
@@ -54,7 +53,7 @@ class TestBook(unittest.TestCase):
         with self.assertRaises(ValueError):
             self._setup(number_of_page=-1)
 
-    def test_should_throw_an_exception_when_the_isbn_not_should_format_valid(self):
+    def test_should_throw_an_exception_when_the_field_not_should_format_valid(self):
         with self.assertRaises(ValueError):
             self._setup(isbn="569-85-08-13196-9")
 

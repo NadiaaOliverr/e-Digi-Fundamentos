@@ -9,27 +9,24 @@ class TestAuthor(unittest.TestCase):
     def _setup(self, name='Luciano Ramalho', email='luciano@luciano.com.br'):
         return Author(name, email)
 
-    def test_should_throw_an_exception_when_the_name_author_is_none(self):
+    def test_should_throw_an_exception_when_the_field_is_none(self):
         with self.assertRaises(ValueError):
             self._setup(name=None)
-
-    def test_should_throw_an_exception_when_the_name_author_is_empty(self):
-        with self.assertRaises(ValueError):
-            self._setup(name='')
-
-    def test_should_throw_an_exception_when_the_name_author_is_empty_full_spaces(self):
-        with self.assertRaises(ValueError):
-            self._setup(name='     ')
-
-    def test_should_throw_an_exception_when_the_email_author_is_none(self):
+        
         with self.assertRaises(ValueError):
             self._setup(email=None)
-
-    def test_should_throw_an_exception_when_the_email_author_is_empty(self):
+        
+    def test_should_throw_an_exception_when_the_field_is_empty(self):
+        with self.assertRaises(ValueError):
+            self._setup(name='')
+        
         with self.assertRaises(ValueError):
             self._setup(email='')
 
-    def test_should_throw_an_exception_when_the_name_email_is_empty_full_spaces(self):
+    def test_should_throw_an_exception_when_the_field_is_empty_full_spaces(self):
+        with self.assertRaises(ValueError):
+            self._setup(name='     ')
+
         with self.assertRaises(ValueError):
             self._setup(email='      ')
 
