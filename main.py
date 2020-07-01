@@ -1,6 +1,11 @@
 """Executa as classes de model e dao."""
-from model import Book, Author, Category, Sale
-from dao import BookDao, SaleDao
+from app.model.author import Author
+from app.model.book import Book
+from app.model.category import Category
+from app.model.sale import Sale
+from app.dao.book_dao import BookDao
+from app.dao.sale_dao import SaleDao
+
 
 __author__ = "Nádia Oliveira"
 __email__ = "nadiaaoliverr@gmail.com"

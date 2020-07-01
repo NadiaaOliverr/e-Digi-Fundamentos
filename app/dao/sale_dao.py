@@ -1,17 +1,18 @@
-from dao import BookDao
-import model.sale as class_sale
+from app.dao.book_dao import BookDao
+from app.model.sale import Sale
+
 from typing import List
 
 
 class SaleDao:
 
-    list_sales: List['Sale'] = []
+    list_sales: List[Sale] = []
 
     def __init__(self) -> None:
         self._sale = []
 
-    def add(self, sale: 'Sale') -> None:
-        if not isinstance(sale, class_sale.Sale):
+    def add(self, sale: Sale) -> None:
+        if not isinstance(sale, Sale):
             raise TypeError('O argumento passado não é do tipo Sale')
 
         self._sale.append(sale)

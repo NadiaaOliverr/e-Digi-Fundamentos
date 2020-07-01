@@ -1,7 +1,9 @@
-import unittest
+from app.model.book import Book
+from app.model.category import Category
+from app.model.author import Author
+from app.dao.book_dao import BookDao
 
-from model import Book, Category, Author
-from dao import BookDao
+import unittest
 
 
 class TestBookDatabase(unittest.TestCase):

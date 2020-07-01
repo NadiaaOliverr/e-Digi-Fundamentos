@@ -1,7 +1,10 @@
+from app.model.book import Book
+from app.model.category import Category
+from app.model.author import Author
+from app.dao.book_dao import BookDao
+
 import unittest
 
-from model import Book, Category, Author
-from dao import BookDao
 
 
 class TestBook(unittest.TestCase):

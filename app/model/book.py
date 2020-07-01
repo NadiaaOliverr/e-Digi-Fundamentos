@@ -1,5 +1,7 @@
-from helpers import is_not_null
-from model import Author, Category
+from app.helpers.decorators import is_not_null
+from app.model.author import Author
+from app.model.category import Category
+
 from datetime import datetime
 import re
 

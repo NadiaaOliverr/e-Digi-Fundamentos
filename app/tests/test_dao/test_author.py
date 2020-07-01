@@ -1,8 +1,7 @@
+from app.model.author import Author
+from app.dao.author_dao import AuthorDao
+
 import unittest
-
-from model import Author
-from dao import AuthorDao
-
 
 class TestAuthorDatabase(unittest.TestCase):
 

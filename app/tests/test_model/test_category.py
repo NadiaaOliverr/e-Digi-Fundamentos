@@ -1,7 +1,8 @@
+from app.model.category import Category
+from app.dao.category_dao import CategoryDao
+
 import unittest
 
-from model import Category
-from dao import CategoryDao
 
 
 class TestCategory(unittest.TestCase):

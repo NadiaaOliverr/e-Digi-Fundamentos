@@ -1,5 +1,6 @@
-from helpers import is_not_null
-from model import Book
+from app.helpers.decorators import is_not_null
+from app.model.book import Book
+
 from typing import List
 
 

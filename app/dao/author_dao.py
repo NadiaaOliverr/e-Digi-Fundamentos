@@ -1,4 +1,5 @@
-from model import Author
+from app.model.author import Author
+
 from typing import List
 
 

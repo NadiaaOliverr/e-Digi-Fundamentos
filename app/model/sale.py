@@ -1,6 +1,8 @@
-from model import Book
+from app.model.book import Book
+from app.dao.book_dao import BookDao
+
 from datetime import datetime
-from dao import BookDao
+
 
 
 class Sale:

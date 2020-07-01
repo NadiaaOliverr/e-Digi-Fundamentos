@@ -1,8 +1,11 @@
+from app.model.sale import Sale
+from app.model.book import Book
+from app.model.category import Category
+from app.model.author import Author
+from app.dao.sale_dao import SaleDao
+from app.dao.book_dao import BookDao
+
 import unittest
-
-from model import Sale, Book, Category, Author
-from dao import SaleDao, BookDao
-
 
 class TestSale(unittest.TestCase):
 

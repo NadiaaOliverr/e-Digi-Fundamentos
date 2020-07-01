@@ -1,4 +1,5 @@
-from model import Category
+from app.model.category import Category
+
 from typing import List
 
 
