@@ -9,7 +9,7 @@ class CategoryDao:
 
     list_categories: List[Category] = []
 
-    def save(self, category: Category) -> str:
+    def save(self, category: Category) -> None:
         if not isinstance(category, Category):
             raise TypeError('O argumento passado não é do tipo Categoria')
 
@@ -18,7 +18,7 @@ class CategoryDao:
 
         self.list_categories.append(category)
 
-        return category
+        print(f'\n---Categoria Cadastrada---\n{category}')
     
     @is_not_null
     def find_one(self, name_category: str) -> Category:

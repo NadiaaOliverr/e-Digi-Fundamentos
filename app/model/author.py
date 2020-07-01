@@ -14,7 +14,7 @@ class Author:
         self._registration_time = datetime.now()
 
     def __str__(self) -> str:
-        return f'\n---Autor Cadastrado---\nNome: {self.name} - E-mail: {self.email}'
+        return f'Nome: {self.name} - E-mail: {self.email}'
 
     def __repr__(self) -> str:
         class_name = type(self).__name__

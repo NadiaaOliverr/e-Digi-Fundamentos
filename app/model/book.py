@@ -36,9 +36,8 @@ class Book:
         self.__set_price(price)
         self._registration_time = datetime.now()
 
-    def __str__(self) -> None:
+    def __str__(self) -> str:
         return (
-            f'\n---Livro Cadastrado---\n'
             f'Título: {self._title}\n'
             f'Resumo: {self._resume}\n'
             f'Sumário: {self._sumary}\n'
@@ -50,7 +49,7 @@ class Book:
             f'Preço: R$ {self._price}\n'
         )
 
-    def __repr__(self) -> None:
+    def __repr__(self) -> str:
         class_name = type(self).__name__
         return (
             '{}({!r}, {!r}, {!r}, {!r}, {!r}, {!r}, {!r}, {!r}, {!r}, {!r})'.format(
@@ -102,11 +101,11 @@ class Book:
             raise ValueError('O ISBN passado não possui um formato válido')
         self._isbn = isbn
     
-    def __set_author(self, author):
+    def __set_author(self, author: Author) -> None:
         author = self.author_dao.find_one(author.email)
         self._author = author
 
-    def __set_category(self, category):
+    def __set_category(self, category: Category) -> None:
         category = self.category_dao.find_one(category.name_category)
         self._category = category
 

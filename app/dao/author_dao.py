@@ -9,7 +9,7 @@ class AuthorDao:
 
     list_authors: List[Author] = []
 
-    def save(self, author: Author) -> str:
+    def save(self, author: Author) -> None:
         if not isinstance(author, Author):
             raise TypeError('O argumento passado não é do tipo Autor')
 
@@ -18,7 +18,7 @@ class AuthorDao:
 
         self.list_authors.append(author)
 
-        return author
+        print(f'\n---Autor Cadastrado---\n{author}')
 
     @is_not_null
     def find_one(self, email: str) -> Author:

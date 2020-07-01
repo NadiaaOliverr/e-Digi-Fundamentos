@@ -18,7 +18,7 @@ class BookDao:
 
         self.list_book.append(book)
 
-        return book
+        print(f'\n---Livro Cadastrado---\n{book}')
 
     @is_not_null
     def find_many(self, title: str) -> List[Book]:

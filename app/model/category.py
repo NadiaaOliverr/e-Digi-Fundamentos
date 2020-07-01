@@ -13,7 +13,7 @@ class Category:
         self._registration_time = datetime.now()
 
     def __str__(self) -> str:
-        return f'\n---Categoria Cadastrada---\nNome da Categoria: {self.name_category}'
+        return f'Nome da Categoria: {self.name_category}'
 
     def __repr__(self) -> str:
         class_name = type(self).__name__

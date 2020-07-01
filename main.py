@@ -22,9 +22,8 @@ def register_categories_database():
     programming = Category('Programação')
     ciencias = Category('Ciências')
     
-    print(dao.save(programming))
-    print(dao.save(ciencias))
-
+    dao.save(programming)
+    dao.save(ciencias)
 
 
 def register_authors_database():
@@ -34,8 +33,8 @@ def register_authors_database():
     luciano_ramalho = Author('Luciano Ramalho', 'luciano@luciano.com.br')
     luciano_pereira = Author('Luciano Pereira', 'luciano@pereira.com.br')
 
-    print(authors.save(luciano_ramalho))
-    print(authors.save(luciano_pereira))
+    authors.save(luciano_ramalho)
+    authors.save(luciano_pereira)
 
 def register_books_database():
 
@@ -53,8 +52,9 @@ def register_books_database():
         Category('Ciências'), "1234", 220.56
     )
 
-    print(book_dao.save(python_fluente))
-    print(book_dao.save(ciencias_basica))
+    book_dao.save(python_fluente)
+    book_dao.save(ciencias_basica)
+
 
 def register_sales():
 
@@ -70,7 +70,7 @@ def register_sales():
     sales_dao = SaleDao()
     sales_dao.add(sale_book_1)
     sales_dao.add(sale_book_2)
-    print(sales_dao.checkout())
+    sales_dao.checkout()
 
 def search_books(title):
 
