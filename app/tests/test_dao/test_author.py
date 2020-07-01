@@ -23,11 +23,11 @@ class TestAuthorDatabase(unittest.TestCase):
         with self.assertRaises(TypeError):
             dao.save(type_str)
     
-    def test_should_print_the_data_of_author_save(self):
+    def test_should_return_none_when_the_data_of_author_save(self):
         dao = AuthorDao()
         author_luciano = self._setup()
 
-        self.assertEqual(dao.save(author_luciano), author_luciano)
+        self.assertIsNone(dao.save(author_luciano))
 
 
 if __name__ == '__main__':

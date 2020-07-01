@@ -40,14 +40,12 @@ class TestSale(unittest.TestCase):
         with self.assertRaises(TypeError):
             dao.add(type_str)
 
-    def test_should_print_the_data_of_sale_save(self):
+    def test_should_return_none_when_the_data_of_sale_save(self):
         dao = SaleDao()
         sale = Sale('Ciências Básica', 4)
-        total_sale = self.book_sciences.price * sale.quantity_sale
-        expected_result = f'\n--- Venda realizada com sucesso ---\n{sale}\nPreço total: R$ {total_sale:.2f}'
         dao.add(sale)
 
-        self.assertEqual(dao.checkout(), expected_result)
+        self.assertIsNone(dao.checkout())
 
 
 if __name__ == '__main__':

@@ -29,11 +29,11 @@ class TestCategoryDatabase(unittest.TestCase):
         with self.assertRaises(KeyError):
             dao.find_one('Ciências')
 
-    def test_should_print_the_data_of_category_save(self):
+    def test_should_return_none_when_the_data_of_category_save(self):
         dao = CategoryDao()
         category_data_science = Category('Data Science')
         
-        self.assertEqual(dao.save(category_data_science), category_data_science)
+        self.assertIsNone(dao.save(category_data_science))
 
 if __name__ == '__main__':
     unittest.main()
