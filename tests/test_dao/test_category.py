@@ -25,9 +25,8 @@ class TestCategoryDatabase(unittest.TestCase):
     def test_should_print_the_data_of_category_save(self):
         dao = CategoryDao()
         category_data_science = Category('Data Science')
-        expected_result = f'\n---Categoria Cadastrada---\n{category_data_science}\n'
         
-        self.assertEqual(dao.save(category_data_science), expected_result)
+        self.assertEqual(dao.save(category_data_science), category_data_science)
 
 if __name__ == '__main__':
     unittest.main()

@@ -22,7 +22,7 @@ class Book:
         self.__set_summary(summary)
         self.__set_number_of_pages(number_of_pages)
         self.__set_isbn(isbn)
-        self._author = author
+        self._author = author 
         self._category = category
         self.__set_edition(edition)
         self.__set_price(price)
@@ -30,6 +30,7 @@ class Book:
 
     def __str__(self) -> None:
         return (
+            f'\n---Livro Cadastrado---\n'
             f'Título: {self._title}\n'
             f'Resumo: {self._resume}\n'
             f'Sumário: {self._sumary}\n'

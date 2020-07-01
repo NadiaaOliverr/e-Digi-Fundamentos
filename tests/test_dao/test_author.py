@@ -24,9 +24,8 @@ class TestAuthorDatabase(unittest.TestCase):
     def test_should_print_the_data_of_author_save(self):
         dao = AuthorDao()
         author_luciano = self._setup()
-        expected_result = f'\n---Autor Cadastrado---\n{author_luciano}\n'
-        
-        self.assertEqual(dao.save(author_luciano), expected_result)
+
+        self.assertEqual(dao.save(author_luciano), author_luciano)
 
 
 if __name__ == '__main__':

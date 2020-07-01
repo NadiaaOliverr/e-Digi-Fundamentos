@@ -16,4 +16,4 @@ class CategoryDao:
 
         self.list_categories.append(category)
 
-        return f'\n---Categoria Cadastrada---\n{category}\n'
+        return category

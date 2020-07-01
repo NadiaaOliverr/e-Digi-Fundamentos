@@ -49,9 +49,8 @@ class TestBookDatabase(unittest.TestCase):
     def test_should_print_the_data_of_book_save(self):
         dao = BookDao()
         book_python_fluente = self._setup()
-        expected_result = f'\n---Livro Cadastrado---\n{book_python_fluente}\n'
         
-        self.assertEqual(dao.save(book_python_fluente), expected_result)
+        self.assertEqual(dao.save(book_python_fluente), book_python_fluente)
 
     def test_should_return_only_one_instance_the_book_when_find_by_one(self):
         dao = BookDao()

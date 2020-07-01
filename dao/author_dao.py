@@ -16,4 +16,4 @@ class AuthorDao:
 
         self.list_authors.append(author)
 
-        return f'\n---Autor Cadastrado---\n{author}\n'
+        return author
