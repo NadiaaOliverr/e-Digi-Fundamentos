@@ -80,7 +80,7 @@ def search_books(title):
     print('---Resultados da pesquisa---')
     if books_found:
         for book in books_found:
-                print(book)
+            print(book)
     else:
         print('Não há livros com esse prefixo em nosso acervo')
 
