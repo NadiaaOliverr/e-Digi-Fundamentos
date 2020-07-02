@@ -23,7 +23,7 @@ class SaleDao:
         total_sale = 0
         
         for item in self._sale:
-            total_sale += item.price_book*item.quantity_sale
+            total_sale += item.price_sale*item.quantity_sale
             informations += str(item)
         
         informations += f'\nPreço total: R$ {total_sale:.2f}'

@@ -28,12 +28,8 @@ class Sale:
         return '{}({!r}, {!r})'.format(class_name, self._book.title, self.quantity_sale)
 
     @property
-    def price_book(self) -> float:
+    def price_sale(self) -> float:
         return self._book.price
-
-    @property
-    def title_book(self) -> str:
-        return self._book.title
 
     @property
     def quantity_sale(self) -> int:
