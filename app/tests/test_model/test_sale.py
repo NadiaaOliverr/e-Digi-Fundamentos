@@ -24,7 +24,7 @@ class TestSale(unittest.TestCase):
         self.book_sciences = Book(
             'Ciências Básica', 'Resumo '*80, 'Sumário do Livro',
             700, "978-85-08-22282-8", Author('Luciano Pereira', 'luciano@pereira.com.br'),
-            Category('Ciências'), "1234", 220.56
+            Category('Ciências'), 2, 220.56
         )
 
         self.book_dao.save(self.book_sciences)

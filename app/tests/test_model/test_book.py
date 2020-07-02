@@ -13,7 +13,7 @@ class TestBook(unittest.TestCase):
     def _setup(self, title='Python Fluente', resume='Resumo '*80, summary='Sumário do Livro', 
                 number_of_page=800,isbn="978-85-08-13196-9", author= Author('Luciano Ramalho',
                 'luciano@luciano.com.br'),category=Category('Programação'),
-                edition="1254", price=120.56):
+                edition=2, price=120.56):
         
         category_dao = CategoryDao()
         category_dao.save(Category('Programação'))
@@ -65,9 +65,9 @@ class TestBook(unittest.TestCase):
         with self.assertRaises(ValueError):
             self._setup(isbn="569-85-08-13196-9")
 
-    def test_should_throw_an_exception_when_the_edition_not_started_with_one(self):
+    def test_should_throw_an_exception_when_the_edition_less_than_or_equal_to_zero(self):
         with self.assertRaises(ValueError):
-            self._setup(edition="2354")
+            self._setup(edition=0)
 
     def test_should_throw_an_exception_when_the_price_less_than_zero(self):
         with self.assertRaises(ValueError):

@@ -14,7 +14,7 @@ class TestBookDatabase(unittest.TestCase):
     def _setup(self, title='Python Fluente', resume='Resumo '*80, summary='Sumário do Livro', 
                 number_of_page=800,isbn="978-85-08-13196-9", author= Author('Luciano Ramalho',
                 'luciano@luciano.com.br'),category=Category('Programação'),
-                edition="1254", price=120.56):
+                edition=2, price=120.56):
         
         category_dao = CategoryDao()
         category_dao.save(Category('Programação'))
