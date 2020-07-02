@@ -40,12 +40,12 @@ class TestSale(unittest.TestCase):
         with self.assertRaises(TypeError):
             dao.add(type_str)
 
-    def test_should_return_none_when_the_data_of_sale_save(self):
+    def test_should_add_sale_in_list_sales_of_database(self):
         dao = SaleDao()
         sale = Sale('Ciências Básica', 4)
         dao.add(sale)
 
-        self.assertIsNone(dao.checkout())
+        assert sale in dao.list_sales, "Temos um problema. A venda não foi salva no database"
 
 
 if __name__ == '__main__':

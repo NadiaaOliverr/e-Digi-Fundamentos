@@ -23,12 +23,13 @@ class TestAuthorDatabase(unittest.TestCase):
         with self.assertRaises(TypeError):
             dao.save(type_str)
     
-    def test_should_return_none_when_the_data_of_author_save(self):
+    def test_should_add_author_in_list_authors_of_database(self):
         dao = AuthorDao()
         author_luciano = self._setup()
+        dao.save(author_luciano)
 
-        self.assertIsNone(dao.save(author_luciano))
-
+        assert author_luciano in dao.list_authors, "Temos um problema. O autor não foi salvo no database"
+        
 
 if __name__ == '__main__':
     unittest.main()

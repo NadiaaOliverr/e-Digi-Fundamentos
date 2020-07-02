@@ -62,11 +62,12 @@ class TestBookDatabase(unittest.TestCase):
         with self.assertRaises(ValueError):
             dao.find_many('P')
 
-    def test_should_return_none_when_the_data_of_book_save(self):
+    def test_should_add_book_in_list_books_of_database(self):
         dao = BookDao()
         book_python_fluente = self._setup()
+        dao.save(book_python_fluente)
         
-        self.assertIsNone(dao.save(book_python_fluente))
+        assert book_python_fluente in dao.list_book, "Temos um problema. O livro não foi salvo no database"
 
     def test_should_return_only_one_instance_the_book_when_find_by_one(self):
         dao = BookDao()
