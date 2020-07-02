@@ -22,7 +22,7 @@ class Book:
 
     def __init__(
         self, title: str, resume: str, summary: str, number_of_pages: int,
-        isbn: str, author: Author, category: Category, edition: str, price: float
+        isbn: str, author: Author, category: Category, edition: int, price: float
     ) -> None:
 
         self.__set_title(title)
@@ -110,11 +110,9 @@ class Book:
         self._category = category
 
 
-    def __set_edition(self, edition: str) -> None:
-        pattern = r"1[0-9]*"
-        edition_is_valid = re.search(pattern, edition)
-        if not edition_is_valid:
-            raise ValueError('A edição digitada não possui formato válido')
+    def __set_edition(self, edition: int) -> None:
+        if edition <= 0:
+            raise ValueError('A edição digitada não possui formato válido, deve começar a partir do 1')
         self._edition = edition
 
     def __set_price(self, price: float) -> None:

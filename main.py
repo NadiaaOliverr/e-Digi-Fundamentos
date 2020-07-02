@@ -43,13 +43,13 @@ def register_books_database():
     python_fluente = Book(
         'Python Fluente', 'Resumo '*80, 'Sumário do Livro',
         800, "978-85-08-13196-9", Author('Luciano Ramalho', 'luciano@luciano.com.br'),
-        Category('Programação'), "1254", 120.56
+        Category('Programação'), 2, 120.56
     )
 
     ciencias_basica = Book(
         'Ciências Básica', 'Resumo '*80, 'Sumário do Livro',
         700, "978-85-08-22232-8", Author('Luciano Pereira', 'luciano@pereira.com.br'),
-        Category('Ciências'), "1234", 220.56
+        Category('Ciências'), 1, 220.56
     )
 
     book_dao.save(python_fluente)
