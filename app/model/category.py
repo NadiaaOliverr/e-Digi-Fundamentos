@@ -1,4 +1,5 @@
-from helpers import is_not_null
+from app.helpers.decorators import is_not_null
+
 from datetime import datetime
 
 

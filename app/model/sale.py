@@ -1,6 +1,9 @@
-from model import Book
+from app.model.book import Book
+from app.dao.book_dao import BookDao
+
 from datetime import datetime
-from dao import BookDao
+
+
 
 class Sale:
     """Modelo de Venda"""
@@ -15,28 +18,27 @@ class Sale:
         self._registration_time = datetime.now()
 
     def __str__(self) -> str:
-        return f'Livro: {self._book.title} - Quantidade: {self.quantity_sale} - Preço: {self._book.price}'
+        return (
+            f'Livro: {self._book.title} - Quantidade: {self.quantity_sale}'
+            f' - Preço: {self._book.price}\n'
+        )
 
     def __repr__(self) -> str:
         class_name = type(self).__name__
         return '{}({!r}, {!r})'.format(class_name, self._book.title, self.quantity_sale)
 
     @property
-    def price_book(self):
+    def price_sale(self) -> float:
         return self._book.price
 
     @property
-    def title_book(self):
-        return self._book.title
-
-    @property
-    def quantity_sale(self):
+    def quantity_sale(self) -> int:
         return self._quantity_sale
 
     @quantity_sale.setter
     def quantity_sale(self, quantity_book: int) -> None:
         if quantity_book <= 0:
-            raise Exception('A quantidade de livros deve ser de pelo menos 1')
+            raise ValueError('A quantidade de livros deve ser de pelo menos 1')
         self._quantity_sale = quantity_book
 
     def __set_book_for_sale(self, title_book: str) -> Book:
