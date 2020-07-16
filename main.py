@@ -24,6 +24,7 @@ def register_categories_database():
     
     dao.save(programming)
     dao.save(ciencias)
+    dao.close()
 
 
 def register_authors_database():
@@ -84,10 +85,10 @@ def search_books(title):
     else:
         print('Não há livros com esse prefixo em nosso acervo')
 
-   
+
 if __name__ == '__main__':
     
-    register_authors_database()
     register_categories_database()
-    register_books_database()
-    register_sales()
+    # register_authors_database()
+    # register_books_database()
+    # register_sales()
