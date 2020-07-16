@@ -3,3 +3,4 @@ __pycache__/
 .mypy_cache/
 anotacoes.py
 .vscode/settings.json
+.pytest_cache/
