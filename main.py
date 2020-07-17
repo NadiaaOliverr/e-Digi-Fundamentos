@@ -88,7 +88,7 @@ def search_books(title):
 
 if __name__ == '__main__':
     
-    register_categories_database()
-    # register_authors_database()
+    register_authors_database()
+    # register_categories_database()
     # register_books_database()
     # register_sales()

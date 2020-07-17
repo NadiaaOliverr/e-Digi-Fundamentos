@@ -1,5 +1,6 @@
 from app.helpers.decorators import is_not_null
 from app.model.author import Author
+from app.config.setup_db import Connection
 
 from typing import List
 
@@ -7,22 +8,34 @@ from typing import List
 class AuthorDao:
     """Banco de Dados de Autores"""
 
-    list_authors: List[Author] = []
+    def __init__(self):
+        self.connection = Connection.connect()
+        self.db = self.connection.cursor(dictionary=True)
 
     def save(self, author: Author) -> None:
         if not isinstance(author, Author):
             raise TypeError('O argumento passado não é do tipo Autor')
 
-        if author in self.list_authors:
-            raise ValueError('Este e-mail já consta na base de dados.')
+        sql = 'INSERT INTO author(name, email) VALUES (%s, %s)'
+        args = (author.name, author.email)
 
-        self.list_authors.append(author)
+        self.db.execute(sql, args)
+        self.connection.commit()
 
-        print(f'\n---Autor Cadastrado---\n{author}')
+        print(f'\n---Autor inserido no banco---\n{author}')
 
     @is_not_null
     def find_one(self, email: str) -> Author:
-        for author in self.list_authors:
-            if email.lower() == author.email.lower():
-                return author
+        sql = 'SELECT name, email FROM author WHERE email = %s'
+        self.db.execute(sql, (email, ))
+
+        result_query = self.db.fetchone()
+
+        if result_query:
+            return Author(result_query['name'], result_query['email'])
+
         raise KeyError('Este autor não está cadastrado')
+
+    def close(self):
+        if self.connection and self.connection.is_connected():
+            self.connection.close()
