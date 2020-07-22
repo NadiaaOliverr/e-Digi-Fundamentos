@@ -1,6 +1,6 @@
 from app.helpers.decorators import is_not_null
 from app.model.author import Author
-from app.config.setup_db import Connection
+from app.config.connection_database import ConnectionDatabase
 
 from typing import List
 
@@ -9,7 +9,7 @@ class AuthorDao:
     """Banco de Dados de Autores"""
 
     def __init__(self):
-        self.connection = Connection.connect()
+        self.connection = ConnectionDatabase.connect()
         self.db = self.connection.cursor(dictionary=True)
 
     def save(self, author: Author) -> None:

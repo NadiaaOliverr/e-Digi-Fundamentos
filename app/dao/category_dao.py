@@ -1,6 +1,6 @@
 from app.helpers.decorators import is_not_null
 from app.model.category import Category
-from app.config.setup_db import Connection
+from app.config.connection_database import ConnectionDatabase
 
 from typing import List
 
@@ -9,7 +9,7 @@ class CategoryDao:
     """Banco de Dados de Categorias"""
 
     def __init__(self):
-        self.connection = Connection.connect()
+        self.connection = ConnectionDatabase.connect()
         self.db = self.connection.cursor(dictionary=True)
 
     def save(self, category: Category) -> None:
