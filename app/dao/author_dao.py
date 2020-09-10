@@ -8,9 +8,9 @@ from typing import List
 class AuthorDao:
     """Banco de Dados de Autores"""
 
-    def __init__(self):
-        self.connection = ConnectionDatabase.connect()
-        self.db = self.connection.cursor(dictionary=True)
+    def __init__(self, connection):
+        self._connection = connection
+        self._cursor = self._connection.cursor(dictionary=True)
 
     def save(self, author: Author) -> None:
         if not isinstance(author, Author):
@@ -19,23 +19,18 @@ class AuthorDao:
         sql = 'INSERT INTO author(name, email) VALUES (%s, %s)'
         args = (author.name, author.email)
 
-        self.db.execute(sql, args)
-        self.connection.commit()
-
+        self._cursor.execute(sql, args)
+        self._connection.commit()
         print(f'\n---Autor inserido no banco---\n{author}')
 
     @is_not_null
     def find_one(self, email: str) -> Author:
         sql = 'SELECT name, email FROM author WHERE email = %s'
-        self.db.execute(sql, (email, ))
+        self._cursor.execute(sql, (email, ))
 
-        result_query = self.db.fetchone()
+        result_query = self._cursor.fetchone()
 
         if result_query:
             return Author(result_query['name'], result_query['email'])
 
         raise KeyError('Este autor não está cadastrado')
-
-    def close(self):
-        if self.connection and self.connection.is_connected():
-            self.connection.close()
