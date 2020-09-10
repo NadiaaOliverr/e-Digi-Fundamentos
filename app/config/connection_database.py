@@ -1,6 +1,8 @@
 from mysql.connector import connect, ProgrammingError
+from contextlib import contextmanager
 
 class ConnectionDatabase:
+
 
     @staticmethod
     def connect():
@@ -17,3 +19,4 @@ class ConnectionDatabase:
             return db
         except ProgrammingError as error:
             print(f'Erro ao conectar: {error}')
+        
