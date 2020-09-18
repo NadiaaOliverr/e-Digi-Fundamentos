@@ -17,9 +17,6 @@ class Book:
         '_isbn', '_author', '_category', '_edition', '_price'
     )
 
-    author_dao = AuthorDao()
-    category_dao = CategoryDao()
-
     def __init__(
         self, title: str, resume: str, summary: str, number_of_pages: int,
         isbn: str, author: Author, category: Category, edition: int, price: float
@@ -102,13 +99,10 @@ class Book:
         self._isbn = isbn
     
     def __set_author(self, author: Author) -> None:
-        author = self.author_dao.find_one(author.email)
         self._author = author
 
     def __set_category(self, category: Category) -> None:
-        category = self.category_dao.find_one(category.name_category)
         self._category = category
-
 
     def __set_edition(self, edition: int) -> None:
         if edition <= 0:
@@ -131,3 +125,27 @@ class Book:
     @property
     def price(self) -> float:
         return self._price
+
+    @property
+    def category_name(self) -> str:
+        return self._category.name_category
+
+    @property
+    def author_name(self) -> str:
+        return self._author.name
+
+    @property
+    def resume(self) -> str:
+        return self._resume
+
+    @property
+    def summary(self) -> str:
+        return self._sumary
+    
+    @property
+    def number_of_pages(self) -> int:
+        return self._number_of_pages
+
+    @property
+    def edition(self) -> int:
+        return self._edition
