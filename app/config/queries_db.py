@@ -1,4 +1,4 @@
-from setup_db import Connection, ProgrammingError
+from connection_database import ConnectionDatabase, ProgrammingError
 
 database_edigi = """
     CREATE DATABASE IF NOT EXISTS edigi
@@ -32,7 +32,7 @@ table_book = """
         resume VARCHAR(800) NOT NULL, 
         summary VARCHAR(800) NOT NULL,  
         number_of_pages INTEGER UNSIGNED NOT NULL, 
-        isbn VARCHAR(11) NOT NULL, 
+        isbn VARCHAR(17) NOT NULL, 
         edition INTEGER UNSIGNED NOT NULL, 
         price FLOAT UNSIGNED NOT NULL,
         time_registration TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -61,9 +61,8 @@ table_sale = """
 if __name__ == '__main__':
 
     try:
-        db = Connection.connect()
+        db = ConnectionDatabase.connect()
         cursor = db.cursor()
-        cursor.execute(database_edigi)
         cursor.execute(table_category)
         cursor.execute(table_author)
         cursor.execute(table_book)
