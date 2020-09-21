@@ -6,27 +6,40 @@ from typing import List
 
 class SaleDao:
 
-    list_sales: List[Sale] = []
-
-    def __init__(self) -> None:
+    def __init__(self, connection) -> None:
         self._sale: List = []
+        self._id_book = []
+        self._connection = connection
+        self._cursor = self._connection.cursor(dictionary=True)
+
 
     def add(self, sale: Sale) -> None:
         if not isinstance(sale, Sale):
             raise TypeError('O argumento passado não é do tipo Sale')
 
+        sql_book_exists = 'SELECT id FROM book WHERE title = %s'
+        args = (sale.title_sale, )
+        self._cursor.execute(sql_book_exists, args)
+        result_query = self._cursor.fetchone()
+        self._id_book.append(result_query)
+        
+        if not result_query:
+            raise Exception('Impossível adicionar a venda, livro não consta na nossa base de dados')
+        
         self._sale.append(sale)
-        self.list_sales.append(sale)
 
     def checkout(self) -> None:
-        informations = '\n--- Venda realizada com sucesso ---\n'
+        sql = 'INSERT INTO sale(book_id, quantity, total) VALUES(%s, %s, %s)'
         total_sale = 0
-        
-        for item in self._sale:
+        informations = '\n--- Venda realizada com sucesso ---\n'
+
+        for index, item in enumerate(self._sale):
             total_sale += item.price_sale*item.quantity_sale
+            args = (self._id_book[index]['id'], item.quantity_sale, total_sale)
+            self._cursor.execute(sql, args)
+            self._connection.commit()
             informations += str(item)
-        
+
         informations += f'\nPreço total: R$ {total_sale:.2f}'
-        self._sale = []
         
         print(informations)
