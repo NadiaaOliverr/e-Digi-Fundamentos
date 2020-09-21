@@ -28,33 +28,29 @@ table_book = """
         id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
         category_id INTEGER NOT NULL,
         author_id INTEGER NOT NULL,
-        title VARCHAR(50) NOT NULL, 
+        title VARCHAR(50) NOT NULL UNIQUE KEY, 
         resume VARCHAR(800) NOT NULL, 
         summary VARCHAR(800) NOT NULL,  
         number_of_pages INTEGER UNSIGNED NOT NULL, 
-        isbn VARCHAR(17) NOT NULL, 
+        isbn VARCHAR(17) NOT NULL UNIQUE KEY, 
         edition INTEGER UNSIGNED NOT NULL, 
         price FLOAT UNSIGNED NOT NULL,
         time_registration TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
         FOREIGN KEY (category_id) REFERENCES category(id),
-        FOREIGN KEY (author_id) REFERENCES author(id),
-        UNIQUE KEY (isbn),
-        UNIQUE KEY(title)
+        FOREIGN KEY (author_id) REFERENCES author(id)
+        ON DELETE CASCADE
     )
 """
 
 table_sale = """
     CREATE TABLE IF NOT EXISTS sale(
         id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        category_id INTEGER NOT NULL,
-        author_id INTEGER NOT NULL,
         book_id INTEGER NOT NULL,
         quantity INTEGER UNSIGNED NOT NULL, 
         total FLOAT UNSIGNED NOT NULL,
         time_registration TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-        FOREIGN KEY (category_id) REFERENCES category(id),
-        FOREIGN KEY (author_id) REFERENCES author(id),
         FOREIGN KEY (book_id) REFERENCES book(id)
+        ON DELETE CASCADE
     )
 """
 
