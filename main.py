@@ -7,6 +7,8 @@ from app.dao.book_dao import BookDao
 from app.dao.sale_dao import SaleDao
 from app.dao.category_dao import CategoryDao
 from app.dao.author_dao import AuthorDao
+from app.config.connection_database import ConnectionDatabase
+
 
 
 
@@ -15,79 +17,105 @@ __email__ = "nadiaaoliverr@gmail.com"
 __status__ = "Em desenvolvimento"
 
 
-def register_categories_database():
+def register_categories_database(): 
     
-    dao = CategoryDao()
+    db = ConnectionDatabase()
 
-    programming = Category('Programação')
-    ciencias = Category('Ciências')
+    dao = CategoryDao(db)
+
+    frontend = Category('Front-End')
+    backend = Category('Back-end')
     
-    dao.save(programming)
-    dao.save(ciencias)
+    dao.save(frontend)
+    dao.save(backend)
+
+    db.close()
 
 
 def register_authors_database():
     
-    authors = AuthorDao()
+    db = ConnectionDatabase()
 
-    luciano_ramalho = Author('Luciano Ramalho', 'luciano@luciano.com.br')
-    luciano_pereira = Author('Luciano Pereira', 'luciano@pereira.com.br')
+    authors = AuthorDao(db)
 
-    authors.save(luciano_ramalho)
-    authors.save(luciano_pereira)
+    kessia_rod = Author('Késsia Rodrigues', 'kessia@kessia.com.br')
+    lucas_souza = Author('Lucas Souza', 'lucas@lucas.com.br')
+
+    authors.save(kessia_rod)
+    authors.save(lucas_souza)
+
+    db.close()
 
 def register_books_database():
 
-    book_dao = BookDao()
+    db = ConnectionDatabase()
 
-    python_fluente = Book(
-        'Python Fluente', 'Resumo '*80, 'Sumário do Livro',
-        800, "978-85-08-13196-9", Author('Luciano Ramalho', 'luciano@luciano.com.br'),
-        Category('Programação'), 2, 120.56
+    book_dao = BookDao(db)
+
+    javascript = Book(
+        'JavaScript', 'Resumo '*80, 'Sumário do Livro',
+        800, "978-85-08-13296-9", Author('Lucas Souza', 'lucas@lucas.com.br'),
+        Category('Front-end'), 2, 120.56
     )
 
-    ciencias_basica = Book(
-        'Ciências Básica', 'Resumo '*80, 'Sumário do Livro',
-        700, "978-85-08-22232-8", Author('Luciano Pereira', 'luciano@pereira.com.br'),
-        Category('Ciências'), 1, 220.56
+    flask = Book(
+        'Flask', 'Resumo '*80, 'Sumário do Livro',
+        700, "978-85-08-14196-9", Author('Késsia Rodrigues', 'kessia@kessia.com.br'),
+        Category('Back-end'), 1, 220.56
     )
 
-    book_dao.save(python_fluente)
-    book_dao.save(ciencias_basica)
+    book_dao.save(javascript)
+    book_dao.save(flask)
+
+    db.close()
 
 
 def register_sales():
 
-    book_1 = 'Ciências Básica'
+    db = ConnectionDatabase()
 
-    book_2 = 'Python Fluente'
+    sales_dao = SaleDao(db)
+    
+    book_1 = Book(
+        'JavaScript', 'Resumo '*80, 'Sumário do Livro',
+        800, "978-85-08-13296-9", Author('Lucas Souza', 'lucas@lucas.com.br'),
+        Category('Front-end'), 2, 120.56
+    )
 
+    book_2 = Book(
+        'Flask', 'Resumo '*80, 'Sumário do Livro',
+        700, "978-85-08-14196-9", Author('Késsia Rodrigues', 'kessia@kessia.com.br'),
+        Category('Back-end'), 1, 220.56
+    )
     
     sale_book_1 = Sale(book_1, 2)
     sale_book_2 = Sale(book_2, 5)
 
-
-    sales_dao = SaleDao()
     sales_dao.add(sale_book_1)
     sales_dao.add(sale_book_2)
     sales_dao.checkout()
 
+    db.close()
+
 def search_books(title):
 
-    book_dao = BookDao()
+    db = ConnectionDatabase()
+
+    book_dao = BookDao(db)
 
     books_found = book_dao.find_many(title)
     print('---Resultados da pesquisa---')
     if books_found:
         for book in books_found:
             print(book)
-    else:
-        print('Não há livros com esse prefixo em nosso acervo')
 
-   
+    db.close()
+
+
 if __name__ == '__main__':
     
     register_authors_database()
     register_categories_database()
     register_books_database()
+    search_books('Flask')
     register_sales()

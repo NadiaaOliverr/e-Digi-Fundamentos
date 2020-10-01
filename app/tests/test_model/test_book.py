@@ -14,18 +14,8 @@ class TestBook(unittest.TestCase):
                 number_of_page=800,isbn="978-85-08-13196-9", author= Author('Luciano Ramalho',
                 'luciano@luciano.com.br'),category=Category('Programação'),
                 edition=2, price=120.56):
-        
-        category_dao = CategoryDao()
-        category_dao.save(Category('Programação'))
-
-        author_dao = AuthorDao()
-        author_dao.save(Author('Luciano Ramalho', 'luciano@luciano.com.br'))
-        
+                
         return Book(title, resume, summary, number_of_page, isbn, author, category, edition, price)
-
-    def tearDown(self):
-        CategoryDao.list_categories = []
-        AuthorDao.list_authors = []
 
     def test_should_throw_an_exception_when_the_field_is_none(self):
         with self.assertRaises(ValueError):

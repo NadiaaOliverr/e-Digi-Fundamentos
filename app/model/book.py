@@ -3,6 +3,8 @@ from app.model.author import Author
 from app.model.category import Category
 from app.dao.author_dao import AuthorDao
 from app.dao.category_dao import CategoryDao
+from app.config.connection_database import ConnectionDatabase
+
 
 
 from datetime import datetime
@@ -16,9 +18,6 @@ class Book:
         '_title', '_resume', '_summary', '_number_of_pages',
         '_isbn', '_author', '_category', '_edition', '_price'
     )
-
-    author_dao = AuthorDao()
-    category_dao = CategoryDao()
 
     def __init__(
         self, title: str, resume: str, summary: str, number_of_pages: int,
@@ -35,6 +34,7 @@ class Book:
         self.__set_edition(edition)
         self.__set_price(price)
         self._registration_time = datetime.now()
+        self._db = ConnectionDatabase()
 
     def __str__(self) -> str:
         return (
@@ -102,13 +102,10 @@ class Book:
         self._isbn = isbn
     
     def __set_author(self, author: Author) -> None:
-        author = self.author_dao.find_one(author.email)
         self._author = author
 
     def __set_category(self, category: Category) -> None:
-        category = self.category_dao.find_one(category.name_category)
         self._category = category
-
 
     def __set_edition(self, edition: int) -> None:
         if edition <= 0:
@@ -131,3 +128,35 @@ class Book:
     @property
     def price(self) -> float:
         return self._price
+
+    @property
+    def category_name(self) -> str:
+        return self._category.name_category
+
+    @property
+    def id_category(self) -> int:
+        return CategoryDao(self._db).id_category(self.category_name)
+
+    @property
+    def author_name(self) -> str:
+        return self._author.name
+    
+    @property
+    def id_author(self) -> int:
+        return AuthorDao(self._db).id_author(self.author_name)
+
+    @property
+    def resume(self) -> str:
+        return self._resume
+
+    @property
+    def summary(self) -> str:
+        return self._sumary
+    
+    @property
+    def number_of_pages(self) -> int:
+        return self._number_of_pages
+
+    @property
+    def edition(self) -> int:
+        return self._edition

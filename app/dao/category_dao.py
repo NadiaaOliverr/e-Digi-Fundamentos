@@ -1,29 +1,45 @@
 from app.helpers.decorators import is_not_null
 from app.model.category import Category
 
-from typing import List
-
 
 class CategoryDao:
     """Banco de Dados de Categorias"""
 
-    list_categories: List[Category] = []
+    def __init__(self, db):
+        self.db = db
+        self._connection = self.db.connect()
+        self._cursor = self.db.cursor()
 
     def save(self, category: Category) -> None:
         if not isinstance(category, Category):
             raise TypeError('O argumento passado não é do tipo Categoria')
 
-        if category in self.list_categories:
-            raise ValueError('Esta categoria já consta na base de dados.')
+        sql = 'INSERT INTO category(name) VALUES (%s)'
+        args = (category.name_category, )
 
-        self.list_categories.append(category)
+        self._cursor.execute(sql, args)
+        self._connection.commit()
+        print(f'--- Categoria inserida no banco ---\n{category}')
+        
 
-        print(f'\n---Categoria Cadastrada---\n{category}')
     
     @is_not_null
     def find_one(self, name_category: str) -> Category:
-        for category in self.list_categories:
-            if name_category.lower() == category.name_category.lower():
-                return category
-        raise KeyError('Esta categoria não consta no acervo')
+        sql = 'SELECT name FROM category WHERE name = %s'
+        self._cursor.execute(sql, (name_category,))
 
+        result_query = self._cursor.fetchone()
+
+        if result_query:
+            return Category(result_query['name'])
+        
+        raise KeyError(f'A categoria {name_category} não consta no acervo')
+
+
+    def id_category(self, name: str) -> int:
+        sql_category_id = 'SELECT id FROM category WHERE name = %s'
+        self._cursor.execute(sql_category_id, (name,))
+        category_id = self._cursor.fetchone()
+        if category_id:
+            return category_id['id']
+        raise Exception('Categoria não encontrado.')

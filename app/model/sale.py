@@ -10,10 +10,8 @@ class Sale:
 
     __attributes = ('_book', '_quantity_sale', '_registration_time')
 
-    book_dao = BookDao()
-
-    def __init__(self, title_book: str, quantity_book: int) -> None:
-        self.__set_book_for_sale(title_book)
+    def __init__(self, book: Book, quantity_book: int) -> None:
+        self.__set_book_for_sale(book)
         self.quantity_sale = quantity_book
         self._registration_time = datetime.now()
 
@@ -35,12 +33,15 @@ class Sale:
     def quantity_sale(self) -> int:
         return self._quantity_sale
 
+    @property
+    def title_sale(self) -> str:
+        return self._book.title
+
     @quantity_sale.setter
     def quantity_sale(self, quantity_book: int) -> None:
         if quantity_book <= 0:
             raise ValueError('A quantidade de livros deve ser de pelo menos 1')
         self._quantity_sale = quantity_book
 
-    def __set_book_for_sale(self, title_book: str) -> Book:
-        book = self.book_dao.find_one(title_book)
+    def __set_book_for_sale(self, book: Book) -> None:
         self._book = book
