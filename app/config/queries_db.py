@@ -57,7 +57,7 @@ table_sale = """
 if __name__ == '__main__':
 
     try:
-        db = ConnectionDatabase.connect()
+        db = ConnectionDatabase().connect()
         cursor = db.cursor()
         cursor.execute(table_category)
         cursor.execute(table_author)
