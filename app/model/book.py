@@ -3,6 +3,8 @@ from app.model.author import Author
 from app.model.category import Category
 from app.dao.author_dao import AuthorDao
 from app.dao.category_dao import CategoryDao
+from app.config.connection_database import ConnectionDatabase
+
 
 
 from datetime import datetime
@@ -32,6 +34,7 @@ class Book:
         self.__set_edition(edition)
         self.__set_price(price)
         self._registration_time = datetime.now()
+        self._db = ConnectionDatabase()
 
     def __str__(self) -> str:
         return (
@@ -131,8 +134,16 @@ class Book:
         return self._category.name_category
 
     @property
+    def id_category(self) -> int:
+        return CategoryDao(self._db).id_category(self.category_name)
+
+    @property
     def author_name(self) -> str:
         return self._author.name
+    
+    @property
+    def id_author(self) -> int:
+        return AuthorDao(self._db).id_author(self.author_name)
 
     @property
     def resume(self) -> str:
