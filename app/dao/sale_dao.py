@@ -6,11 +6,12 @@ from typing import List
 
 class SaleDao:
 
-    def __init__(self, connection) -> None:
+    def __init__(self, db) -> None:
         self._sale: List = []
         self._id_book = []
-        self._connection = connection
-        self._cursor = self._connection.cursor(dictionary=True)
+        self.db = db
+        self._connection = self.db.connect()
+        self._cursor = self.db.cursor()
 
 
     def add(self, sale: Sale) -> None:

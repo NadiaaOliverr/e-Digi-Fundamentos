@@ -13,8 +13,9 @@ import unittest
 class TestBookDatabase(unittest.TestCase):
 
     def setUp(self):
-        self.connection = ConnectionDatabase.connect()
-        self.cursor = self.connection.cursor(dictionary=True)
+        self.db = ConnectionDatabase()
+        self.connection = self.db.connect()
+        self.cursor = self.db.cursor()
 
         category_dao = CategoryDao(self.connection)
         category_dao.save(Category('IoT'))

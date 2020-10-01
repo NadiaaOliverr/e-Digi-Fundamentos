@@ -8,8 +8,9 @@ import unittest
 class TestAuthorDatabase(unittest.TestCase):
 
     def setUp(self):
-        self.connection = ConnectionDatabase.connect()
-        self.cursor = self.connection.cursor(dictionary=True)
+        self.db = ConnectionDatabase()
+        self.connection = self.db.connect()
+        self.cursor = self.db.cursor()
 
 
     def _setup(self, name='Luciano Ramalho', email='luciano@luciano.com.br'):

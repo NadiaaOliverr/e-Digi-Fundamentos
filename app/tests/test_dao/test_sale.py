@@ -13,9 +13,10 @@ import unittest
 class TestSale(unittest.TestCase):
 
     def setUp(self):
-        self.connection = ConnectionDatabase.connect()
-        self.cursor = self.connection.cursor(dictionary=True)
-        
+        self.db = ConnectionDatabase()
+        self.connection = self.db.connect()
+        self.cursor = self.db.cursor()
+
         self.book_sciences = Book(
             'Ciências Básica', 'Resumo '*80, 'Sumário do Livro',
             700, "978-85-08-22282-8", Author('Luciano Pereira', 'luciano@pereira.com.br'),

@@ -19,9 +19,9 @@ __status__ = "Em desenvolvimento"
 
 def register_categories_database(): 
     
-    connection = ConnectionDatabase.connect()
+    db = ConnectionDatabase()
 
-    dao = CategoryDao(connection)
+    dao = CategoryDao(db)
 
     frontend = Category('Front-End')
     backend = Category('Back-end')
@@ -29,14 +29,14 @@ def register_categories_database():
     dao.save(frontend)
     dao.save(backend)
 
-    connection.close()
+    db.close()
 
 
 def register_authors_database():
     
-    connection = ConnectionDatabase.connect()
+    db = ConnectionDatabase()
 
-    authors = AuthorDao(connection)
+    authors = AuthorDao(db)
 
     kessia_rod = Author('Késsia Rodrigues', 'kessia@kessia.com.br')
     lucas_souza = Author('Lucas Souza', 'lucas@lucas.com.br')
@@ -44,13 +44,13 @@ def register_authors_database():
     authors.save(kessia_rod)
     authors.save(lucas_souza)
 
-    connection.close()
+    db.close()
 
 def register_books_database():
 
-    connection = ConnectionDatabase.connect()
+    db = ConnectionDatabase()
 
-    book_dao = BookDao(connection)
+    book_dao = BookDao(db)
 
     javascript = Book(
         'JavaScript', 'Resumo '*80, 'Sumário do Livro',
@@ -67,14 +67,14 @@ def register_books_database():
     book_dao.save(javascript)
     book_dao.save(flask)
 
-    connection.close()
+    db.close()
 
 
 def register_sales():
 
-    connection = ConnectionDatabase.connect()
+    db = ConnectionDatabase()
 
-    sales_dao = SaleDao(connection)
+    sales_dao = SaleDao(db)
     
     book_1 = Book(
         'JavaScript', 'Resumo '*80, 'Sumário do Livro',
@@ -95,13 +95,13 @@ def register_sales():
     sales_dao.add(sale_book_2)
     sales_dao.checkout()
 
-    connection.close()
+    db.close()
 
 def search_books(title):
 
-    connection = ConnectionDatabase.connect()
+    db = ConnectionDatabase()
 
-    book_dao = BookDao(connection)
+    book_dao = BookDao(db)
 
     books_found = book_dao.find_many(title)
     print('---Resultados da pesquisa---')
@@ -109,7 +109,7 @@ def search_books(title):
         for book in books_found:
             print(book)
 
-    connection.close()
+    db.close()
 
 
 if __name__ == '__main__':
@@ -117,5 +117,5 @@ if __name__ == '__main__':
     register_authors_database()
     register_categories_database()
     register_books_database()
-    search_books('Python')
+    search_books('Flask')
     register_sales()

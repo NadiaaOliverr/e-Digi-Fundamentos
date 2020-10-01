@@ -5,9 +5,10 @@ from app.model.category import Category
 class CategoryDao:
     """Banco de Dados de Categorias"""
 
-    def __init__(self, connection):
-        self._connection = connection
-        self._cursor = self._connection.cursor(dictionary=True)
+    def __init__(self, db):
+        self.db = db
+        self._connection = self.db.connect()
+        self._cursor = self.db.cursor()
 
     def save(self, category: Category) -> None:
         if not isinstance(category, Category):

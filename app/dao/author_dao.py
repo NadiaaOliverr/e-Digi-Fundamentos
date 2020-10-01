@@ -8,9 +8,10 @@ from typing import List
 class AuthorDao:
     """Banco de Dados de Autores"""
 
-    def __init__(self, connection):
-        self._connection = connection
-        self._cursor = self._connection.cursor(dictionary=True)
+    def __init__(self, db):
+        self.db = db
+        self._connection = self.db.connect()
+        self._cursor = self.db.cursor()
 
     def save(self, author: Author) -> None:
         if not isinstance(author, Author):

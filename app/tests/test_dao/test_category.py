@@ -8,8 +8,9 @@ import unittest
 class TestCategoryDatabase(unittest.TestCase):
 
     def setUp(self):
-        self.connection = ConnectionDatabase.connect()
-        self.cursor = self.connection.cursor(dictionary=True)
+        self.db = ConnectionDatabase()
+        self.connection = self.db.connect()
+        self.cursor = self.db.cursor()
 
     def tearDown(self):
         sql_delete = 'DELETE FROM category WHERE name = "Programming" OR name="Data Science"'

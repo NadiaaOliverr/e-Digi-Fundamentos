@@ -9,9 +9,10 @@ from typing import List
 class BookDao:
     """Banco de Dados de Livros"""
 
-    def __init__(self, connection):
-        self._connection = connection
-        self._cursor = self._connection.cursor(dictionary=True, buffered=True)
+    def __init__(self, db):
+        self.db = db
+        self._connection = self.db.connect()
+        self._cursor = self.db.cursor()
 
     def save(self, book: Book) -> None:
         if not isinstance(book, Book):
