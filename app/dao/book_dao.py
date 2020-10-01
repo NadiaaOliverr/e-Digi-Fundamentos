@@ -18,21 +18,13 @@ class BookDao:
         if not isinstance(book, Book):
             raise TypeError('O argumento passado não é do tipo Livro')
 
-        sql_category_id = 'SELECT id FROM category WHERE name = %s'
-        self._cursor.execute(sql_category_id, (book.category_name,))
-        category_id = self._cursor.fetchone()
-
-        sql_author_id = 'SELECT id FROM author WHERE name = %s'
-        self._cursor.execute(sql_author_id, (book.author_name,))
-        author_id = self._cursor.fetchone()
-
         sql = """INSERT INTO book(
                 category_id, author_id, title, 
                 resume, summary, number_of_pages,
                 isbn,edition, price) VALUES 
                 (%s, %s, %s, %s, %s, %s, %s, %s, %s)"""
         args = (
-            category_id['id'], author_id['id'], book.title,
+            book.id_category, book.id_author, book.title,
             book.resume, book.summary, book.number_of_pages,
             book.isbn, book.edition, book.price
         )
