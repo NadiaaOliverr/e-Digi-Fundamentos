@@ -17,11 +17,12 @@ class TestBookDatabase(unittest.TestCase):
         self.connection = self.db.connect()
         self.cursor = self.db.cursor()
 
-        category_dao = CategoryDao(self.connection)
+        category_dao = CategoryDao(self.db)
         category_dao.save(Category('IoT'))
 
-        author_dao = AuthorDao(self.connection)
+        author_dao = AuthorDao(self.db)
         author_dao.save(Author('Ramalho Sérgio','sergio@ramalho.com.br'))
+        self.db.close()
 
     def _setup(self, title='Python Fluente', resume='Resumo '*80, summary='Sumário do Livro', 
                 number_of_page=800,isbn="978-85-08-13196-9", author= Author('Ramalho Sérgio','sergio@ramalho.com.br'),
@@ -36,43 +37,48 @@ class TestBookDatabase(unittest.TestCase):
         for query in queries: 
             self.cursor.execute(query)
             self.connection.commit()
-        self.connection.close()
+        self.db.close()
 
     def test_should_throw_an_exception_when_add_isbn_of_book_already_exists(self):
-        dao = BookDao(self.connection)
+        dao = BookDao(self.db)
         with self.assertRaises(db.IntegrityError):
             dao.save(self._setup())
             dao.save(self._setup(title="Python Fluent V2"))
+        self.db.close()
 
 
     def test_should_throw_an_exception_when_add_title_of_book_already_exists(self):
-        dao = BookDao(self.connection)
+        dao = BookDao(self.db)
         with self.assertRaises(db.IntegrityError):
             dao.save(self._setup())
             dao.save(self._setup(isbn="978-95-08-13196-9"))
+        self.db.close()
 
     def test_should_throw_an_exception_when_save_other_type_different_of_book(self):
-        dao = BookDao(self.connection)
+        dao = BookDao(self.db)
         type_str = 'Type str'
         with self.assertRaises(TypeError):
             dao.save(type_str)
+        self.db.close()
     
     def test_should_throw_an_exception_when_find_by_book_not_exists(self):
-        dao = BookDao(self.connection)
+        dao = BookDao(self.db)
         with self.assertRaises(KeyError):
             dao.find_one('C++ Orientado a Objetos')
         
         with self.assertRaises(KeyError):
             dao.find_many('C++')
+        self.db.close()
     
     def test_should_throw_an_exception_when_find_by_many_book_with_title_less_than_two_charactere(self):
-        dao = BookDao(self.connection)
+        dao = BookDao(self.db)
     
         with self.assertRaises(ValueError):
             dao.find_many('P')
+        self.db.close()
 
     def test_should_add_book_in_database(self):
-        dao = BookDao(self.connection)
+        dao = BookDao(self.db)
         book_python_fluente = self._setup()
         dao.save(book_python_fluente)
 
@@ -81,16 +87,19 @@ class TestBookDatabase(unittest.TestCase):
         result_query = self.cursor.fetchone()
         
         self.assertEqual('978-85-08-13196-9', result_query['isbn'])
+        self.db.close()
 
     def test_should_return_only_one_instance_the_book_when_find_by_one(self):
-        dao = BookDao(self.connection)
+        dao = BookDao(self.db)
         dao.save(self._setup())
         self.assertIsInstance(dao.find_one('Python Fluente'), Book)
+        self.db.close()
     
     def test_should_return_list_of_many_book_when_find_by_many(self):
-        dao = BookDao(self.connection)
+        dao = BookDao(self.db)
         dao.save(self._setup())
         self.assertIsInstance(dao.find_many('Python Fluente'), list)
+        self.db.close()
 
 if __name__ == '__main__':
     unittest.main()

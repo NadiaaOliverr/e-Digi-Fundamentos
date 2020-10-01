@@ -16,34 +16,40 @@ class TestCategoryDatabase(unittest.TestCase):
         sql_delete = 'DELETE FROM category WHERE name = "Programming" OR name="Data Science"'
         self.cursor.execute(sql_delete)
         self.connection.commit()
-        self.connection.close()
+        self.db.close()
 
     def test_should_throw_an_exception_when_add_name_of_category_already_exists(self):
         
-        dao = CategoryDao(self.connection)
+        dao = CategoryDao(self.db)
         category_programming = Category('Programming')
         category_already_exists_programming = Category('Programming')
         dao.save(category_programming)
 
         with self.assertRaises(db.IntegrityError):
             dao.save(category_already_exists_programming)
+        
+        self.db.close()
     
 
     def test_should_throw_an_exception_when_save_other_type_different_of_category(self):
-        dao = CategoryDao(self.connection)
+        dao = CategoryDao(self.db)
         type_str = 'Type str'
         
         with self.assertRaises(TypeError):
             dao.save(type_str)
 
+        self.db.close()
+
     def test_should_throw_an_exception_when_find_by_book_not_exists(self):
-        dao = CategoryDao(self.connection)
+        dao = CategoryDao(self.db)
 
         with self.assertRaises(KeyError):
             dao.find_one('Ciências Avançadas')
+        
+        self.db.close()
 
     def test_should_add_category_in_database(self):
-        dao = CategoryDao(self.connection)
+        dao = CategoryDao(self.db)
         category_data_science = Category('Data Science')
         dao.save(category_data_science)
 
@@ -52,6 +58,8 @@ class TestCategoryDatabase(unittest.TestCase):
         result_query = self.cursor.fetchone()
         
         self.assertEqual('Data Science', result_query['name'])
+        self.db.close()
+
 
 if __name__ == '__main__':
     unittest.main()

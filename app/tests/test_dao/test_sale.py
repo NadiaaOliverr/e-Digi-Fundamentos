@@ -23,14 +23,15 @@ class TestSale(unittest.TestCase):
             Category('Ciências'), 1, 220.56
         )
 
-        dao_author = AuthorDao(self.connection)
+        dao_author = AuthorDao(self.db)
         dao_author.save(Author('Luciano Pereira', 'luciano@pereira.com.br'))
 
-        dao_category = CategoryDao(self.connection)
+        dao_category = CategoryDao(self.db)
         dao_category.save(Category('Ciências'))
 
-        dao_book = BookDao(self.connection)
+        dao_book = BookDao(self.db)
         dao_book.save(self.book_sciences)
+        self.db.close()
 
     def tearDown(self):
         sql_author = 'DELETE FROM author WHERE email = "luciano@pereira.com.br"'
@@ -40,26 +41,28 @@ class TestSale(unittest.TestCase):
         for query in queries: 
             self.cursor.execute(query)
             self.connection.commit()
-        self.connection.close()
+        self.db.close()
 
     def test_should_throw_an_exception_when_try_add_type_different_sale(self):
-        dao = SaleDao(self.connection)
+        dao = SaleDao(self.db)
         type_str = 'Type str'
 
         with self.assertRaises(TypeError):
             dao.add(type_str)
+        self.db.close()
 
     def test_should_add_sale_in_database(self):
-        dao = SaleDao(self.connection)
+        dao = SaleDao(self.db)
         sale = Sale(self.book_sciences, 4)
         dao.add(sale)
         dao.checkout()
 
-        sql = 'SELECT title FROM sale AS s JOIN book AS b on s.book_id=b.id'
+        sql = 'SELECT title FROM sale AS s JOIN book AS b on s.book_id=b.id WHERE title = "Ciências Básica"'
         self.cursor.execute(sql)
         result_query = self.cursor.fetchone()
         
         self.assertEqual('Ciências Básica', result_query['title'])
+        self.db.close()
 
 
 

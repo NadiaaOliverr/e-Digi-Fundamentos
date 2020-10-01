@@ -17,25 +17,27 @@ class TestAuthorDatabase(unittest.TestCase):
         return Author(name, email)
 
     def tearDown(self):
-        sql_delete = 'DELETE FROM author WHERE email = "luciano@luciano.com.br"'
+        sql_delete = 'DELETE FROM author WHERE email="luciano@luciano.com.br"'
         self.cursor.execute(sql_delete)
         self.connection.commit()
-        self.connection.close()
+        self.db.close()
     
     def test_should_throw_an_exception_when_add_email_of_author_already_exists(self):
-        dao = AuthorDao(self.connection)
+        dao = AuthorDao(self.db)
         with self.assertRaises(db.IntegrityError):
             dao.save(self._setup())
             dao.save(self._setup())
+        self.db.close()
 
     def test_should_throw_an_exception_when_save_other_type_different_of_author(self):
-        dao = AuthorDao(self.connection)
+        dao = AuthorDao(self.db)
         type_str = 'Type str'
         with self.assertRaises(TypeError):
             dao.save(type_str)
+        self.db.close()
     
     def test_should_add_author_in_database(self):
-        dao = AuthorDao(self.connection)
+        dao = AuthorDao(self.db)
         author_luciano = self._setup()
         dao.save(author_luciano)
         
@@ -44,6 +46,8 @@ class TestAuthorDatabase(unittest.TestCase):
         result_query = self.cursor.fetchone()
         
         self.assertEqual('luciano@luciano.com.br', result_query['email'])
+
+        self.db.close()
 
 
 if __name__ == '__main__':
