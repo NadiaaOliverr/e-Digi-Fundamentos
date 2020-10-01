@@ -34,3 +34,12 @@ class CategoryDao:
             return Category(result_query['name'])
         
         raise KeyError(f'A categoria {name_category} não consta no acervo')
+
+
+    def id_category(self, name: str) -> int:
+        sql_category_id = 'SELECT id FROM category WHERE name = %s'
+        self._cursor.execute(sql_category_id, (name,))
+        category_id = self._cursor.fetchone()
+        if category_id:
+            return category_id['id']
+        raise Exception('Categoria não encontrado.')

@@ -35,3 +35,12 @@ class AuthorDao:
             return Author(result_query['name'], result_query['email'])
 
         raise KeyError('Este autor não está cadastrado')
+
+
+    def id_author(self, name: str) -> int:
+        sql_author_id = 'SELECT id FROM author WHERE name = %s'
+        self._cursor.execute(sql_author_id, (name,))
+        author_id = self._cursor.fetchone()
+        if author_id:
+            return author_id['id']
+        raise Exception('Autor não encontrado')
